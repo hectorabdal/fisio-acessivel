@@ -1,9 +1,17 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { WhatsAppButton } from "@/components/site/WhatsAppButton";
-import { site } from "@/lib/site";
-import heroImg from "@/assets/hero-fisioterapia-domiciliar.jpg";
+import { BlocoContato, NumeroWhatsApp, SalvarContatoBotao } from "@/components/site/ContatoMagnet";
+import {
+  IconeBanheiro,
+  IconeCadeira,
+  IconeCama,
+  IconeCaminhar,
+  IconeDegrau,
+  IconeWhatsApp,
+} from "@/components/site/icons";
+import { site, whatsappLink } from "@/lib/site";
+import { hasEditorialContent } from "@/lib/editorial";
 import cuidadoImg from "@/assets/cuidado-idoso.jpg";
-import alanImg from "@/assets/dr-alan.jpg";
 import { createPageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/")({
@@ -17,84 +25,49 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const diferenciais = [
+const tarefas = [
+  { Icone: IconeCama, titulo: "Levantar da cama", texto: "Sair da cama com segurança, sem puxão." },
   {
-    titulo: "Cuidado especial com pessoas idosas",
-    texto:
-      "A experiência com o público idoso é uma das principais características do trabalho do Dr. Alan, com pós-graduação em Fisioterapia Geriátrica.",
+    Icone: IconeCadeira,
+    titulo: "Sentar e levantar",
+    texto: "Da poltrona, da cama, do vaso: força de perna e apoio certo.",
   },
   {
-    titulo: "Atendimento no conforto de casa",
-    texto:
-      "Mais comodidade para o paciente e para a família, sem a necessidade de deslocamento até uma clínica.",
+    Icone: IconeCaminhar,
+    titulo: "Caminhar pela casa",
+    texto: "Equilíbrio, passo mais firme e menos medo de cair.",
   },
   {
-    titulo: "Atendimento humanizado",
-    texto:
-      "Cada pessoa merece ser tratada com atenção, respeito e escuta — inclusive quem cuida dela.",
+    Icone: IconeDegrau,
+    titulo: "Subir o degrau",
+    texto: "Degrau da entrada, escada, meio-fio na porta de casa.",
   },
   {
-    titulo: "Proposta acessível",
-    texto:
-      "Fisioterapia com uma proposta pensada para facilitar o acesso ao cuidado. Condições conversadas caso a caso.",
-  },
-  {
-    titulo: "Atuação desde 2018",
-    texto: "Experiência profissional na área de fisioterapia desde 2018.",
-  },
-  {
-    titulo: "Presença em Campinas",
-    texto:
-      "Atendimento fisioterapêutico domiciliar em Campinas e região. Consulte a disponibilidade para o seu endereço.",
-  },
-];
-
-const areas = [
-  {
-    titulo: "Fisioterapia Geriátrica",
-    texto:
-      "Cuidado voltado às necessidades da pessoa idosa: mobilidade, equilíbrio, força e autonomia no dia a dia, respeitando o ritmo de cada um.",
-    destaque: true,
-  },
-  {
-    titulo: "Fisioterapia Ortopédica",
-    texto:
-      "Acompanhamento de necessidades ligadas a músculos, articulações e recuperação funcional após lesões ou cirurgias.",
-  },
-  {
-    titulo: "Fisioterapia Neurológica",
-    texto:
-      "Atenção às necessidades funcionais de pessoas com condições neurológicas, com foco em qualidade de movimento e independência possível.",
-  },
-  {
-    titulo: "Fisioterapia Esportiva",
-    texto:
-      "Atendimento para quem pratica atividades físicas e busca acompanhamento profissional na rotina de treinos.",
+    Icone: IconeBanheiro,
+    titulo: "Banho com segurança",
+    texto: "Entrar e sair do banheiro, o lugar de mais risco de queda.",
   },
 ];
 
 const passos = [
   {
-    n: "1",
+    n: 1,
     titulo: "Você manda uma mensagem",
-    texto:
-      "Conte brevemente o que está acontecendo e quem precisa de atendimento. Não é preciso saber qual tratamento procurar.",
+    texto: "Conta o que está acontecendo. Não precisa saber qual tratamento procurar.",
   },
   {
-    n: "2",
-    titulo: "Conversamos sobre a necessidade",
-    texto:
-      "O Dr. Alan escuta o caso, esclarece dúvidas e verifica as possibilidades de atendimento domiciliar.",
+    n: 2,
+    titulo: "O Dr. Alan responde",
+    texto: "Ele escuta o caso, tira dúvidas e verifica se dá para atender no seu endereço.",
   },
   {
-    n: "3",
+    n: 3,
     titulo: "Avaliação inicial em casa",
-    texto:
-      "Sendo possível, é combinada uma avaliação inicial no endereço do paciente, em dia e horário alinhados com a família.",
+    texto: "Sendo possível, vocês combinam dia e horário para a primeira visita.",
   },
 ];
 
-function Section({
+function Secao({
   children,
   className = "",
   id,
@@ -104,7 +77,7 @@ function Section({
   id?: string;
 }) {
   return (
-    <section id={id} className={`px-5 py-16 sm:py-20 ${className}`}>
+    <section id={id} className={`px-5 py-14 sm:py-18 ${className}`}>
       <div className="mx-auto max-w-6xl">{children}</div>
     </section>
   );
@@ -113,297 +86,217 @@ function Section({
 function Index() {
   return (
     <>
-      {/* HERO */}
-      <section className="bg-gradient-soft px-5 pb-16 pt-12 sm:pt-16">
-        <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-2">
-          <div>
-            <span className="inline-flex items-center gap-2 rounded-full bg-card px-4 py-1.5 text-sm font-medium text-deep shadow-soft">
-              Fisioterapia domiciliar em {site.cidade} · {site.estado}
-            </span>
-            <h1 className="mt-5 text-4xl font-bold leading-[1.1] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-              Cuidar de quem você ama ficou mais fácil.
+      {/* O ímã: contato primeiro, com o número maior que o nome do serviço. */}
+      <section className="px-5 pb-12 pt-8 sm:pt-12">
+        <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[1.15fr_1fr] lg:items-start">
+          <div className="magnet bg-highlight p-6 text-highlight-foreground sm:p-9">
+            <h1 className="text-[2rem] font-bold leading-[1.1] sm:text-5xl">
+              Fisioterapia que vai até a casa de quem você ama
             </h1>
-            <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted-foreground">
-              Fisioterapia domiciliar em Campinas com o {site.profissional}: atendimento humanizado,
-              atenção especial às necessidades da pessoa idosa e o conforto de ser atendida em casa.
+            <p className="mt-4 max-w-lg text-lg leading-relaxed sm:text-xl">
+              Atendimento domiciliar em {site.cidade}, com atenção especial à pessoa idosa. Quem
+              atende é o {site.profissional}, pós-graduado em Fisioterapia Geriátrica.
             </p>
 
-            <ul className="mt-6 grid gap-2 text-base text-foreground sm:grid-cols-2">
-              {[
-                "Atendimento em domicílio",
-                "Pós-graduado em Fisioterapia Geriátrica",
-                "Avaliação inicial combinada por WhatsApp",
-                "Proposta acessível",
-              ].map((item) => (
-                <li key={item} className="flex items-start gap-2">
-                  <span className="mt-1 text-leaf">✓</span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
+            <p className="mt-6 text-sm font-bold uppercase tracking-wide">WhatsApp</p>
+            <NumeroWhatsApp />
 
-            <div className="mt-8 flex flex-wrap gap-3">
-              <WhatsAppButton trackingId="whatsapp_hero">
-                Solicitar avaliação inicial pelo WhatsApp
-              </WhatsAppButton>
-              <Link
-                to="/servicos"
-                className="inline-flex items-center justify-center rounded-full border border-primary/40 bg-card px-6 py-3.5 text-base font-semibold text-primary transition-colors hover:bg-accent"
+            <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <a
+                href={whatsappLink()}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-whatsapp-event="whatsapp_hero"
+                className="inline-flex min-h-12 items-center justify-center gap-2.5 rounded-lg bg-primary px-6 py-3 text-base font-semibold text-primary-foreground transition-[background-color,scale] duration-150 ease-out hover:bg-deep motion-safe:active:scale-[0.98]"
               >
-                Conhecer o atendimento
-              </Link>
+                <IconeWhatsApp className="h-5 w-5 shrink-0" />
+                Falar no WhatsApp
+                <span className="sr-only"> (abre o WhatsApp em outra janela)</span>
+              </a>
+              <SalvarContatoBotao />
             </div>
-            <p className="mt-4 text-sm text-muted-foreground">
-              Atendimento para famílias que buscam fisioterapia para idosos em Campinas — sem
-              deslocamento até a clínica.
-            </p>
           </div>
 
-          <div className="relative">
-            <img
-              src={heroImg}
-              alt="Fisioterapeuta atendendo uma senhora idosa na sala de casa, em Campinas"
-              width={1600}
-              height={1104}
-              fetchPriority="high"
-              className="w-full rounded-3xl object-cover shadow-soft"
-            />
+          {/* O bilhete preso ao lado do ímã: o caminho inteiro em três passos. */}
+          <div className="plate p-6 sm:p-8">
+            <h2 className="text-xl font-bold sm:text-2xl">Como funciona</h2>
+            <ol className="mt-5">
+              {passos.map((passo) => (
+                <li
+                  key={passo.n}
+                  className="grid grid-cols-[3rem_1fr] gap-4 border-b border-border py-4 last:border-b-0 last:pb-0"
+                >
+                  <span className="numerais flex h-12 w-12 items-center justify-center rounded-lg bg-secondary text-2xl font-bold text-deep">
+                    {passo.n}
+                  </span>
+                  <span>
+                    <span className="block text-lg font-bold">{passo.titulo}</span>
+                    <span className="mt-1 block text-base leading-relaxed text-muted-foreground">
+                      {passo.texto}
+                    </span>
+                  </span>
+                </li>
+              ))}
+            </ol>
+            <p className="mt-5 text-base text-muted-foreground">
+              A avaliação inicial é combinada pelo WhatsApp, sem compromisso.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* EMPATIA / IDOSOS */}
-      <Section>
-        <div className="grid items-center gap-12 lg:grid-cols-2">
-          <img
-            src={cuidadoImg}
-            alt="Mãos de um fisioterapeuta apoiando o braço de um senhor idoso durante sessão em casa"
-            loading="lazy"
-            width={1200}
-            height={900}
-            className="w-full rounded-3xl object-cover shadow-soft"
-          />
+      {/* As placas: um assunto por placa, do jeito que uma sinalização informa. */}
+      <Secao className="bg-secondary">
+        <h2 className="max-w-3xl text-3xl font-bold sm:text-4xl">
+          O tratamento acontece onde a vida acontece
+        </h2>
+        <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+          Em casa, a fisioterapia trabalha as tarefas reais do dia a dia — com os móveis, o degrau e
+          a cadeira que a pessoa usa de verdade.
+        </p>
+        <ul className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {tarefas.map(({ Icone, titulo, texto }) => (
+            <li key={titulo} className="magnet bg-primary p-6 text-primary-foreground">
+              <Icone className="h-11 w-11" />
+              <h3 className="mt-4 text-xl font-bold">{titulo}</h3>
+              <p className="mt-2 text-base leading-relaxed">{texto}</p>
+            </li>
+          ))}
+          <li className="plate flex flex-col justify-center p-6">
+            <p className="text-lg leading-relaxed">
+              Cada caso é diferente. Conte o que está acontecendo e o Dr. Alan avalia o que dá para
+              trabalhar.
+            </p>
+            <WhatsAppButton
+              trackingId="whatsapp_tarefas"
+              variant="outline"
+              className="mt-5 w-full"
+              mensagem="Olá, Dr. Alan! Gostaria de conversar sobre uma avaliação para um familiar idoso."
+            >
+              Contar o meu caso
+            </WhatsAppButton>
+          </li>
+        </ul>
+      </Secao>
+
+      {/* Por que em casa */}
+      <Secao>
+        <div className="grid items-center gap-10 lg:grid-cols-2">
+          <figure className="m-0">
+            <img
+              src={cuidadoImg}
+              alt="Fisioterapeuta apoiando o braço de um senhor idoso durante um exercício em casa"
+              loading="lazy"
+              width={1200}
+              height={900}
+              className="w-full rounded-lg border border-border object-cover"
+            />
+            <figcaption className="mt-2 text-sm text-muted-foreground">
+              Imagem ilustrativa. As fotos do atendimento do Dr. Alan entram assim que forem
+              autorizadas.
+            </figcaption>
+          </figure>
           <div>
-            <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-              Quando o paciente é alguém que você ama, o cuidado precisa ser diferente.
+            <h2 className="text-3xl font-bold sm:text-4xl">
+              Levar a pessoa até a clínica é, muitas vezes, a parte mais difícil
             </h2>
             <div className="mt-5 space-y-4 text-lg leading-relaxed text-muted-foreground">
               <p>
-                Para muitas famílias, levar uma pessoa idosa até uma clínica pode ser cansativo,
-                desconfortável ou simplesmente difícil: escadas, transporte, dor ao se mover,
-                horários, alguém disponível para acompanhar.
+                Escada, transporte, dor ao se mover, horário, alguém disponível para acompanhar:
+                depois de uma queda ou de uma perda de força, sair de casa vira um problema por si
+                só.
               </p>
               <p>
-                A Fisio Acessível leva o atendimento fisioterapêutico até a casa do paciente,
-                proporcionando mais comodidade e um ambiente familiar para o cuidado.
+                Atender em casa resolve isso e ainda mostra o cenário real — os móveis, o degrau da
+                entrada, o banheiro. É ali que a fisioterapia consegue trabalhar o que importa.
               </p>
               <p>
-                O {site.profissional} tem pós-graduação em Fisioterapia Geriátrica e uma atuação
-                especialmente voltada ao atendimento de pessoas idosas — com linguagem clara,
-                respeito e paciência.
+                A pessoa idosa é tratada como adulta: linguagem clara, informação honesta e
+                participação nas decisões. A família também é orientada.
               </p>
-            </div>
-            <div className="mt-7">
-              <WhatsAppButton
-                trackingId="whatsapp_idosos"
-                mensagem="Olá, Dr. Alan! Gostaria de conversar sobre uma avaliação para um familiar idoso."
-              >
-                Quero conversar sobre uma avaliação
-              </WhatsAppButton>
             </div>
           </div>
         </div>
-      </Section>
+      </Secao>
 
-      {/* DIFERENCIAIS */}
-      <Section className="bg-secondary">
-        <h2 className="max-w-3xl text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-          Por que escolher a Fisio Acessível?
-        </h2>
-        <p className="mt-3 max-w-2xl text-lg text-muted-foreground">
-          Mais do que sessões de fisioterapia: a tranquilidade de saber que quem você ama está sendo
-          bem cuidado, em casa.
-        </p>
-        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {diferenciais.map((d) => (
-            <div
-              key={d.titulo}
-              className="rounded-2xl border border-border bg-card p-6 shadow-soft transition-transform hover:-translate-y-1"
-            >
-              <h3 className="text-lg font-semibold text-foreground">{d.titulo}</h3>
-              <p className="mt-2 text-base leading-relaxed text-muted-foreground">{d.texto}</p>
-            </div>
-          ))}
-        </div>
-      </Section>
-
-      {/* SOBRE */}
-      <Section>
-        <div className="grid items-center gap-12 lg:grid-cols-[0.8fr_1fr]">
-          <img
-            src={alanImg}
-            alt="Retrato do Dr. Alan Oliveira Costa, fisioterapeuta em Campinas"
-            loading="lazy"
-            width={1008}
-            height={1200}
-            className="mx-auto w-full max-w-sm rounded-3xl object-cover shadow-soft"
-          />
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-wide text-primary">
-              Conheça o profissional
+      {/* Quem atende, com as pendências à mostra em vez de inventadas. */}
+      <Secao className="bg-secondary" id="quem-atende">
+        <div className="plate grid gap-8 p-6 sm:p-9 lg:grid-cols-[1fr_1.4fr]">
+          <div className="flex min-h-56 flex-col items-center justify-center rounded-lg border-2 border-dashed border-border bg-background p-6 text-center">
+            <p className="text-base font-semibold">Foto do Dr. Alan</p>
+            <p className="mt-2 text-base text-muted-foreground">
+              Espaço reservado para a foto profissional real, com autorização.
             </p>
-            <h2 className="mt-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-              {site.profissional}
-            </h2>
-            <div className="mt-5 space-y-4 text-lg leading-relaxed text-muted-foreground">
-              <p>
-                Fisioterapeuta com atuação desde 2018 e Pós-Graduação em Fisioterapia Geriátrica.
-              </p>
-              <p>
-                Seu trabalho tem uma característica especial: o cuidado com pessoas idosas. Por meio
-                do atendimento domiciliar, a fisioterapia chega até o paciente em Campinas,
-                proporcionando mais conforto para quem precisa de cuidado e mais tranquilidade para
-                toda a família.
-              </p>
-            </div>
+          </div>
+          <div>
+            <h2 className="text-3xl font-bold sm:text-4xl">{site.profissional}</h2>
+            <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
+              Fisioterapeuta com atuação desde 2018 e Pós-Graduação em Fisioterapia Geriátrica. O
+              cuidado com pessoas idosas é a marca do trabalho dele, e o atendimento domiciliar leva
+              esse cuidado até a casa do paciente em {site.cidade}.
+            </p>
+            <dl className="mt-6 grid gap-4 sm:grid-cols-2">
+              <div className="rounded-lg bg-secondary p-4">
+                <dt className="text-sm font-bold uppercase tracking-wide text-deep">Formação</dt>
+                <dd className="mt-1 text-base">Pós-Graduação em Fisioterapia Geriátrica</dd>
+              </div>
+              <div className="rounded-lg border-2 border-dashed border-border p-4">
+                <dt className="text-sm font-bold uppercase tracking-wide text-deep">CREFITO</dt>
+                <dd className="mt-1 text-base text-muted-foreground">
+                  A ser informado pelo profissional
+                </dd>
+              </div>
+            </dl>
             <Link
               to="/sobre"
-              className="mt-7 inline-flex items-center justify-center rounded-full border border-primary/40 bg-card px-6 py-3.5 text-base font-semibold text-primary transition-colors hover:bg-accent"
+              className="mt-6 inline-flex min-h-12 items-center rounded-lg border-2 border-primary bg-card px-6 py-3 text-base font-semibold text-deep transition-colors hover:bg-secondary"
             >
               Conhecer o Dr. Alan
             </Link>
           </div>
         </div>
-      </Section>
+      </Secao>
 
-      {/* ÁREAS */}
-      <Section className="bg-secondary">
-        <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-          Áreas de fisioterapia
-        </h2>
-        <p className="mt-3 max-w-2xl text-lg text-muted-foreground">
-          Atendimento domiciliar com foco no que faz diferença no dia a dia de cada pessoa.
-        </p>
-        <div className="mt-10 grid gap-5 md:grid-cols-2">
-          {areas.map((a) => (
-            <div
-              key={a.titulo}
-              className={`rounded-2xl border p-7 shadow-soft ${
-                a.destaque
-                  ? "border-primary/40 bg-gradient-brand text-primary-foreground md:row-span-2"
-                  : "border-border bg-card"
-              }`}
-            >
-              {a.destaque && (
-                <span className="mb-3 inline-block rounded-full bg-card/25 px-3 py-1 text-xs font-semibold uppercase tracking-wide">
-                  Principal especialidade
-                </span>
-              )}
-              <h3 className={`text-xl font-semibold ${a.destaque ? "" : "text-foreground"}`}>
-                {a.titulo}
-              </h3>
-              <p
-                className={`mt-2 text-base leading-relaxed ${
-                  a.destaque ? "opacity-95" : "text-muted-foreground"
-                }`}
-              >
-                {a.texto}
+      {hasEditorialContent && (
+        <Secao>
+          <div className="grid gap-6 lg:grid-cols-[1.3fr_1fr] lg:items-center">
+            <div>
+              <h2 className="text-3xl font-bold sm:text-4xl">
+                Dúvidas sobre quedas, força e caminhada
+              </h2>
+              <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+                Orientações escritas em linguagem simples sobre mobilidade, envelhecimento e quando
+                procurar ajuda, com as fontes citadas.
               </p>
             </div>
-          ))}
-        </div>
-        <Link
-          to="/servicos"
-          className="mt-8 inline-flex items-center justify-center rounded-full border border-primary/40 bg-card px-6 py-3.5 text-base font-semibold text-primary transition-colors hover:bg-accent"
-        >
-          Ver especialidades
-        </Link>
-      </Section>
-
-      {/* COMO FUNCIONA */}
-      <Section id="como-funciona">
-        <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-          O primeiro passo é conversar
-        </h2>
-        <p className="mt-3 max-w-2xl text-lg text-muted-foreground">
-          Você não precisa saber exatamente qual tratamento procurar. Entre em contato pelo WhatsApp
-          e explique a situação.
-        </p>
-        <div className="mt-10 grid gap-5 md:grid-cols-3">
-          {passos.map((p) => (
-            <div key={p.n} className="rounded-2xl border border-border bg-card p-7 shadow-soft">
-              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-accent text-lg font-bold text-accent-foreground">
-                {p.n}
-              </span>
-              <h3 className="mt-4 text-lg font-semibold text-foreground">{p.titulo}</h3>
-              <p className="mt-2 text-base leading-relaxed text-muted-foreground">{p.texto}</p>
-            </div>
-          ))}
-        </div>
-        <p className="mt-6 text-sm text-muted-foreground">
-          Entre em contato pelo WhatsApp para conversar sobre sua necessidade e verificar as
-          possibilidades de atendimento.
-        </p>
-        <div className="mt-6">
-          <WhatsAppButton trackingId="whatsapp_como_funciona">
-            Solicitar avaliação inicial
-          </WhatsAppButton>
-        </div>
-      </Section>
-
-      {/* DEPOIMENTOS */}
-      <Section className="bg-secondary">
-        <div className="rounded-3xl border border-border bg-card p-8 text-center shadow-soft sm:p-12">
-          <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-            Depoimentos de pacientes e famílias
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
-            Estamos reunindo relatos reais de pacientes e familiares atendidos em Campinas. Nesta
-            página só serão publicados depoimentos verdadeiros, com autorização de quem os escreveu.
-          </p>
-          <p className="mx-auto mt-3 max-w-2xl text-base text-muted-foreground">
-            Já foi atendido pelo Dr. Alan? Envie seu relato pelo WhatsApp.
-          </p>
-          <div className="mt-7 flex justify-center">
-            <WhatsAppButton
-              variant="outline"
-              trackingId="whatsapp_depoimentos"
-              mensagem="Olá! Gostaria de deixar um depoimento sobre o atendimento."
-            >
-              Enviar meu depoimento
-            </WhatsAppButton>
-          </div>
-        </div>
-      </Section>
-
-      {/* CTA FINAL */}
-      <Section>
-        <div className="rounded-3xl bg-gradient-brand p-8 text-primary-foreground shadow-soft sm:p-14">
-          <h2 className="max-w-3xl text-3xl font-bold tracking-tight sm:text-4xl">
-            Seu familiar precisa de fisioterapia?
-          </h2>
-          <p className="mt-4 max-w-2xl text-lg opacity-95">
-            Não deixe que o deslocamento até uma clínica seja mais uma dificuldade. Converse com o
-            Dr. Alan e descubra como funciona o atendimento domiciliar em Campinas.
-          </p>
-          <ul className="mt-6 grid gap-2 text-lg sm:grid-cols-3">
-            <li>Cuidado com atenção à pessoa idosa</li>
-            <li>Atendimento no conforto de casa</li>
-            <li>Uma proposta acessível</li>
-          </ul>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <WhatsAppButton trackingId="whatsapp_final" variant="outline" className="bg-card">
-              Solicitar avaliação inicial pelo WhatsApp
-            </WhatsAppButton>
             <Link
-              to="/contato"
-              className="inline-flex items-center justify-center rounded-full border border-primary-foreground/50 px-6 py-3.5 text-base font-semibold transition-colors hover:bg-primary-foreground/10"
+              to="/orientacoes"
+              className="inline-flex min-h-12 items-center justify-center rounded-lg border-2 border-primary bg-card px-6 py-3 text-base font-semibold text-deep transition-colors hover:bg-secondary lg:justify-self-end"
             >
-              Ver contato e região
+              Ler as orientações
             </Link>
           </div>
+        </Secao>
+      )}
+
+      <Secao className="pt-0">
+        <BlocoContato
+          titulo="Seu pai ou sua mãe precisa de fisioterapia?"
+          texto="Converse com o Dr. Alan sobre o caso e descubra como funciona o atendimento em casa, em Campinas."
+        />
+        <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-base text-muted-foreground">
+            Depoimentos: só publicamos relatos reais, com autorização de quem escreveu. Ainda não há
+            nenhum publicado.
+          </p>
+          <Link
+            to="/contato"
+            className="inline-flex min-h-12 shrink-0 items-center rounded-lg px-1 text-base font-semibold text-deep underline underline-offset-4"
+          >
+            Ver contato e região
+          </Link>
         </div>
-      </Section>
+      </Secao>
     </>
   );
 }

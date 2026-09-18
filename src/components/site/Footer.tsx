@@ -3,97 +3,89 @@ import { hasEditorialContent } from "@/lib/editorial";
 import { site, whatsappLink } from "@/lib/site";
 import logoFull from "@/assets/logo-full.png";
 
+const navegacao = [
+  { to: "/", label: "Início" },
+  { to: "/servicos", label: "Serviços" },
+  { to: "/sobre", label: "Sobre o Dr. Alan" },
+  ...(hasEditorialContent ? [{ to: "/orientacoes", label: "Orientações" }] : []),
+  { to: "/contato", label: "Contato" },
+  { to: "/politica-de-privacidade", label: "Política de Privacidade" },
+] as const;
+
 export function Footer() {
   return (
-    <footer className="mt-24 border-t border-border bg-secondary">
-      <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 sm:grid-cols-2 lg:grid-cols-4">
+    <footer className="mt-20 border-t border-border bg-secondary">
+      <div className="mx-auto grid max-w-6xl gap-10 px-5 py-12 sm:grid-cols-2 lg:grid-cols-3">
         <div>
           <img
             src={logoFull}
-            alt={`Logo ${site.nome}`}
+            alt={`Logo da ${site.nome}`}
             className="h-24 w-auto"
-            width={116}
+            width={97}
             height={96}
+            loading="lazy"
           />
-          <p className="mt-2 text-sm text-muted-foreground">
+          <p className="mt-3 max-w-xs text-base text-muted-foreground">
             Fisioterapia domiciliar em {site.cidade} ({site.estado}), com atenção especial às
             necessidades da pessoa idosa.
           </p>
         </div>
 
-        <div>
-          <p className="text-sm font-semibold text-foreground">Navegação</p>
-          <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-            <li>
-              <Link to="/" className="hover:text-primary">
-                Início
-              </Link>
-            </li>
-            <li>
-              <Link to="/servicos" className="hover:text-primary">
-                Serviços
-              </Link>
-            </li>
-            <li>
-              <Link to="/sobre" className="hover:text-primary">
-                Sobre o Dr. Alan
-              </Link>
-            </li>
-            {hasEditorialContent && (
-              <li>
-                <Link to="/orientacoes" className="hover:text-primary">
-                  Orientações
+        <nav aria-label="Navegação do rodapé">
+          <h2 className="text-base font-bold text-foreground">Navegação</h2>
+          <ul className="mt-3">
+            {navegacao.map((item) => (
+              <li key={item.to}>
+                <Link
+                  to={item.to}
+                  className="flex min-h-11 items-center text-base text-muted-foreground hover:text-deep hover:underline"
+                >
+                  {item.label}
                 </Link>
               </li>
-            )}
-            <li>
-              <Link to="/contato" className="hover:text-primary">
-                Contato
-              </Link>
-            </li>
-            <li>
-              <Link to="/politica-de-privacidade" className="hover:text-primary">
-                Política de Privacidade
-              </Link>
-            </li>
+            ))}
           </ul>
-        </div>
+        </nav>
 
         <div>
-          <p className="text-sm font-semibold text-foreground">Atendimento</p>
-          <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-            <li>Fisioterapia Geriátrica</li>
-            <li>Fisioterapia Ortopédica</li>
-            <li>Fisioterapia Neurológica</li>
-            <li>Fisioterapia Esportiva</li>
-          </ul>
-        </div>
-
-        <div>
-          <p className="text-sm font-semibold text-foreground">Contato</p>
-          <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
+          <h2 className="text-base font-bold text-foreground">Contato</h2>
+          <ul className="mt-3">
             <li>
               <a
                 href={whatsappLink()}
                 target="_blank"
                 rel="noopener noreferrer"
                 data-whatsapp-event="whatsapp_footer"
-                className="hover:text-primary"
+                className="flex min-h-11 items-center text-base text-muted-foreground hover:text-deep hover:underline"
               >
                 WhatsApp: {site.whatsappLabel}
+                <span className="sr-only"> (abre o WhatsApp em outra janela)</span>
               </a>
             </li>
             <li>
-              <a href={`mailto:${site.email}`} className="hover:text-primary">
+              <a
+                href={`tel:${site.telefoneLink}`}
+                className="flex min-h-11 items-center text-base text-muted-foreground hover:text-deep hover:underline"
+              >
+                Ligar: {site.whatsappLabel}
+              </a>
+            </li>
+            <li>
+              <a
+                href={`mailto:${site.email}`}
+                className="flex min-h-11 items-center text-base text-muted-foreground hover:text-deep hover:underline"
+              >
                 {site.email}
               </a>
             </li>
-            <li>Atendimento domiciliar em {site.cidade} e região</li>
+            <li className="flex min-h-11 items-center text-base text-muted-foreground">
+              Atendimento domiciliar em {site.cidade} e região
+            </li>
           </ul>
         </div>
       </div>
 
-      <div className="border-t border-border/70 px-5 py-6 text-center text-xs text-muted-foreground">
+      <div className="border-t border-border px-5 py-6 text-center text-sm text-muted-foreground">
         © {new Date().getFullYear()} {site.nome} — {site.profissional}. Este site tem caráter
         informativo e não substitui avaliação profissional individual.
       </div>

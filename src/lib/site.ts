@@ -6,6 +6,7 @@ export const site = {
   estado: "SP",
   whatsapp: "5519995874920",
   whatsappLabel: "(19) 99587-4920",
+  telefoneLink: "+5519995874920",
   email: "acessivelfisio@gmail.com",
   instagram: "https://instagram.com/fisio.acessivel",
 };
@@ -14,4 +15,22 @@ export function whatsappLink(
   mensagem = "Olá, Dr. Alan! Gostaria de conversar sobre uma avaliação inicial de fisioterapia domiciliar em Campinas.",
 ) {
   return `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(mensagem)}`;
+}
+
+// Cartão de contato para a agenda do celular. Quebra de linha CRLF e escape de
+// vírgula fazem parte do formato vCard; sem isso o Android ignora o arquivo.
+export function vcardContato() {
+  const linhas = [
+    "BEGIN:VCARD",
+    "VERSION:3.0",
+    `N:${site.profissional};;;;`,
+    `FN:${site.profissional}`,
+    `ORG:${site.nome}`,
+    "TITLE:Fisioterapeuta",
+    `TEL;TYPE=CELL:${site.telefoneLink}`,
+    `EMAIL:${site.email}`,
+    `NOTE:Fisioterapia domiciliar em ${site.cidade} (${site.estado}) — atendimento na casa do paciente.`,
+    "END:VCARD",
+  ];
+  return linhas.join("\r\n");
 }
