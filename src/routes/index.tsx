@@ -9,7 +9,6 @@ import {
   IconeDegrau,
   IconeWhatsApp,
 } from "@/components/site/icons";
-import { PlantaBaixa } from "@/components/site/PlantaBaixa";
 import { fichaProfissional as ficha, site, whatsappLink } from "@/lib/site";
 import { hasEditorialContent } from "@/lib/editorial";
 import cuidadoImg from "@/assets/cuidado-idoso.jpg";
@@ -27,36 +26,11 @@ export const Route = createFileRoute("/")({
 });
 
 const tarefas = [
-  {
-    Icone: IconeCama,
-    local: "No quarto",
-    titulo: "Levantar da cama",
-    texto: "Sair da cama sem puxão.",
-  },
-  {
-    Icone: IconeCadeira,
-    local: "Na sala",
-    titulo: "Sentar e levantar",
-    texto: "Da poltrona, da cama, do vaso.",
-  },
-  {
-    Icone: IconeCaminhar,
-    local: "No corredor",
-    titulo: "Caminhar pela casa",
-    texto: "Passo firme, menos medo de cair.",
-  },
-  {
-    Icone: IconeDegrau,
-    local: "Na entrada",
-    titulo: "Subir o degrau",
-    texto: "Degrau da entrada e escada.",
-  },
-  {
-    Icone: IconeBanheiro,
-    local: "No banheiro",
-    titulo: "Banho com segurança",
-    texto: "Entrar e sair do banheiro.",
-  },
+  { Icone: IconeCama, titulo: "Levantar da cama", texto: "No quarto, sair da cama sem puxão." },
+  { Icone: IconeCadeira, titulo: "Sentar e levantar", texto: "Da poltrona, da cama, do vaso." },
+  { Icone: IconeCaminhar, titulo: "Caminhar pela casa", texto: "Passo firme, menos medo de cair." },
+  { Icone: IconeDegrau, titulo: "Subir o degrau", texto: "Degrau da entrada e escada." },
+  { Icone: IconeBanheiro, titulo: "Banho com segurança", texto: "Entrar e sair do banheiro." },
 ];
 
 const passos = [
@@ -162,38 +136,26 @@ function Index() {
         </h2>
         <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground">
           Em casa, a fisioterapia trabalha as tarefas reais do dia a dia — com os móveis, o degrau e
-          a cadeira que a pessoa usa de verdade. Os números marcam onde cada uma acontece.
+          a cadeira que a pessoa usa de verdade.
         </p>
-
-        <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_1fr] lg:items-start">
-          <div className="plate p-5 sm:p-7">
-            <PlantaBaixa className="w-full text-deep" />
-          </div>
-
-          <ol className="magnet grid overflow-hidden bg-primary text-primary-foreground">
-            {tarefas.map(({ Icone, local, titulo, texto }, i) => (
-              <li
-                key={titulo}
-                className={`flex items-start gap-4 p-5 ${
-                  i > 0 ? "border-t border-primary-foreground/25" : ""
-                }`}
-              >
-                <span className="numerais flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 border-primary-foreground text-xl font-bold">
-                  {i + 1}
-                </span>
-                <span className="min-w-0">
-                  <span className="flex items-center gap-2.5">
-                    <Icone className="h-7 w-7 shrink-0" />
-                    <span className="text-xl font-bold leading-snug">{titulo}</span>
-                  </span>
-                  <span className="mt-1 block text-lg leading-relaxed">
-                    {local}: {texto}
-                  </span>
-                </span>
-              </li>
-            ))}
-          </ol>
-        </div>
+        {/* Uma faixa só, como uma placa de sinalização: a cor forte ocupa a região
+            inteira e cada símbolo divide o campo, em vez de virarem cartões iguais. */}
+        <ul className="magnet mt-9 grid overflow-hidden bg-primary text-primary-foreground sm:grid-cols-2 lg:grid-cols-5">
+          {tarefas.map(({ Icone, titulo, texto }, i) => (
+            <li
+              key={titulo}
+              className={`flex flex-col gap-3 p-6 ${
+                i > 0 ? "border-t border-primary-foreground/25 sm:border-t-0" : ""
+              } ${i % 2 === 1 ? "sm:border-l sm:border-primary-foreground/25" : ""} ${
+                i > 1 ? "sm:border-t sm:border-primary-foreground/25" : ""
+              } lg:border-l lg:border-t-0 lg:first:border-l-0`}
+            >
+              <Icone className="h-14 w-14" />
+              <h3 className="text-xl font-bold leading-snug">{titulo}</h3>
+              <p className="text-lg leading-relaxed">{texto}</p>
+            </li>
+          ))}
+        </ul>
         <div className="plate mx-auto mt-5 flex max-w-3xl flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="max-w-md text-lg leading-relaxed">
             Cada caso é diferente. Conte o que está acontecendo e o Dr. Alan avalia o que dá para
