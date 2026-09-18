@@ -320,6 +320,12 @@ marca reconhecida e precisa manter a silhueta.
 **A Regra do Tracejado Honesto.** Borda tracejada de 2px significa uma coisa só: este dado ainda
 não foi confirmado pelo profissional. Nunca use tracejado como enfeite.
 
+**A linha de recorte** (`.recorte`, em `src/styles.css`) é a única exceção decorativa: um tracejado
+de 1px em `currentColor` a 30% de opacidade, recuado 10px para dentro da peça, com raio de 4px.
+Ela marca a peça de contato como material impresso, do jeito que um ímã de gráfica traz o
+"recorte aqui". Vale apenas nas peças de contato amarelas (`magnet` + `recorte`); a faixa de
+sinalização e as peças de papel não a recebem, e ela nunca substitui o tracejado de dado pendente.
+
 ## Components
 
 ### Buttons
