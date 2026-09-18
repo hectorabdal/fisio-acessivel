@@ -67,7 +67,7 @@ function Servicos() {
           <h1 className="text-[2rem] font-bold leading-[1.1] sm:text-5xl">
             Fisioterapia em domicílio em {site.cidade}
           </h1>
-          <p className="mt-5 text-lg leading-relaxed text-muted-foreground sm:text-xl">
+          <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
             Todas as áreas abaixo são atendidas na casa do paciente, com atenção especial à pessoa
             idosa. Se você não tem certeza de qual é o caso do seu familiar, conversamos antes — sem
             compromisso.
@@ -96,7 +96,7 @@ function Servicos() {
               </p>
               <h2 className="mt-1 text-2xl font-bold sm:text-3xl">{s.titulo}</h2>
               <p
-                className={`mt-4 max-w-3xl text-lg leading-relaxed ${
+                className={`mt-4 max-w-2xl text-lg leading-relaxed ${
                   s.destaque ? "" : "text-muted-foreground"
                 }`}
               >

@@ -3,7 +3,7 @@ import { BlocoContato, SalvarContatoBotao } from "@/components/site/ContatoMagne
 import { IconeImprimir, IconeWhatsApp } from "@/components/site/icons";
 import { site } from "@/lib/site";
 import { createPageHead } from "@/lib/seo";
-import logoFull from "@/assets/logo-full.png";
+import logoFull from "@/assets/logo-full.webp";
 
 export const Route = createFileRoute("/contato")({
   head: () =>
@@ -120,7 +120,7 @@ function Contato() {
       {/* O cartão que vira ímã: salvar no celular ou imprimir e colar na geladeira. */}
       <section className="px-5 pb-14" id="cartao-geladeira">
         <div className="mx-auto max-w-6xl">
-          <div className="plate grid gap-7 p-7 sm:p-9 lg:grid-cols-[1.1fr_1fr] lg:items-center">
+          <div className="grid gap-7 lg:grid-cols-[1.1fr_1fr] lg:items-center">
             <div>
               <h2 className="text-2xl font-bold sm:text-3xl">Deixe o número à mão</h2>
               <p className="mt-3 text-lg leading-relaxed text-muted-foreground">

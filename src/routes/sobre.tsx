@@ -105,7 +105,9 @@ function Sobre() {
             {principios.map((p) => (
               <div key={p.titulo} className="border-t-2 border-border pt-5">
                 <h3 className="text-xl font-bold">{p.titulo}</h3>
-                <p className="mt-2 text-lg leading-relaxed text-muted-foreground">{p.texto}</p>
+                <p className="mt-2 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+                  {p.texto}
+                </p>
               </div>
             ))}
           </div>

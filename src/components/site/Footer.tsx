@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { hasEditorialContent } from "@/lib/editorial";
 import { site, whatsappLink } from "@/lib/site";
-import logoFull from "@/assets/logo-full.png";
+import logoFull from "@/assets/logo-full.webp";
 
 const navegacao = [
   { to: "/", label: "Início" },

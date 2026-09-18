@@ -221,7 +221,7 @@ function Index() {
 
       {/* Quem atende, com as pendências à mostra em vez de inventadas. */}
       <Secao className="bg-secondary" id="quem-atende">
-        <div className="plate grid gap-8 p-6 sm:p-9 lg:grid-cols-[1fr_1.4fr]">
+        <div className="grid gap-8 lg:grid-cols-[1fr_1.4fr]">
           <div className="flex min-h-56 flex-col items-center justify-center rounded-lg border-2 border-dashed border-border bg-background p-6 text-center">
             <p className="text-base font-semibold">Foto do Dr. Alan</p>
             <p className="mt-2 text-base text-muted-foreground">

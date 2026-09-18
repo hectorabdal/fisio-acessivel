@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { WhatsAppButton } from "./WhatsAppButton";
 import { hasEditorialContent } from "@/lib/editorial";
 import { site } from "@/lib/site";
-import logoSymbol from "@/assets/logo-symbol.png";
+import logoSymbol from "@/assets/logo-symbol.webp";
 
 const nav = [
   { to: "/", label: "Início" },
