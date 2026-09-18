@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowRight } from "lucide-react";
+import { IconeSetaDireita } from "@/components/site/icons";
 import { editorialCategories } from "@/data/orientacoes";
 import { availableArticles, editorialHead, hasEditorialContent } from "@/lib/editorial";
 import { EditorialCard, EditorialContact, EditorialNotice } from "@/components/site/Editorial";
@@ -28,7 +28,7 @@ function Orientacoes() {
   return (
     <>
       <EditorialNotice />
-      <section className="bg-gradient-soft px-5 py-12 sm:py-16">
+      <section className="px-5 py-12 sm:py-16">
         <div className="mx-auto grid max-w-6xl items-center gap-10 md:grid-cols-[1.4fr_1fr]">
           <div>
             <h1 className="text-[2rem] font-bold leading-[1.1] sm:text-5xl">
@@ -46,8 +46,7 @@ function Orientacoes() {
                 params={{ slug: firstRead.slug }}
                 className="mt-7 inline-flex items-center gap-3 text-base font-semibold text-deep underline underline-offset-4"
               >
-                Percebeu uma mudança na caminhada?{" "}
-                <ArrowRight aria-hidden="true" className="h-5 w-5 shrink-0" />
+                Percebeu uma mudança na caminhada? <IconeSetaDireita className="h-5 w-5 shrink-0" />
               </Link>
             )}
           </div>
@@ -103,7 +102,7 @@ function Orientacoes() {
             ))}
           </div>
           {visible.length === 0 && (
-            <p className="rounded-2xl bg-secondary p-6">
+            <p className="rounded-lg bg-secondary p-6 text-lg">
               Ainda não há orientações publicadas neste assunto. Escolha outra categoria.
             </p>
           )}

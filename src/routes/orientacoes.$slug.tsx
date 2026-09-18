@@ -1,7 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { ArrowLeft, ArrowUpRight } from "lucide-react";
-import { IconeSeta } from "@/components/site/icons";
+import { IconeSeta, IconeSetaDireita, IconeSetaEsquerda } from "@/components/site/icons";
 import { editorialReferences } from "@/data/orientacoes";
 import { editorialHead, findArticle, isPublished } from "@/lib/editorial";
 import {
@@ -68,7 +67,7 @@ function Artigo() {
             to="/orientacoes"
             className="inline-flex min-h-11 items-center gap-2 text-base font-medium text-deep"
           >
-            <ArrowLeft aria-hidden="true" className="h-4 w-4" /> Todas as orientações
+            <IconeSetaEsquerda className="h-5 w-5 shrink-0" /> Todas as orientações
           </Link>
           <h1 className="mt-6 max-w-4xl text-3xl font-bold leading-tight sm:text-5xl sm:leading-tight">
             {article.title}
@@ -186,7 +185,7 @@ function Artigo() {
                     className="flex items-center justify-between gap-4 border-b border-border py-5 text-base font-semibold text-deep"
                   >
                     {item.title}
-                    <ArrowUpRight aria-hidden="true" className="h-5 w-5 shrink-0" />
+                    <IconeSetaDireita className="h-5 w-5 shrink-0" />
                   </Link>
                 ))}
               </section>

@@ -122,6 +122,24 @@ export function IconeSeta({ className }: IconProps) {
   );
 }
 
+export function IconeSetaDireita({ className }: IconProps) {
+  return (
+    <Tracado className={className}>
+      <path d="M4 12h15" />
+      <path d="M13 6l6 6-6 6" />
+    </Tracado>
+  );
+}
+
+export function IconeSetaEsquerda({ className }: IconProps) {
+  return (
+    <Tracado className={className}>
+      <path d="M20 12H5" />
+      <path d="M11 6l-6 6 6 6" />
+    </Tracado>
+  );
+}
+
 export function IconeCheck({ className }: IconProps) {
   return (
     <Tracado className={className}>

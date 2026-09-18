@@ -9,7 +9,7 @@ import {
   IconeDegrau,
   IconeWhatsApp,
 } from "@/components/site/icons";
-import { site, whatsappLink } from "@/lib/site";
+import { fichaProfissional as ficha, site, whatsappLink } from "@/lib/site";
 import { hasEditorialContent } from "@/lib/editorial";
 import cuidadoImg from "@/assets/cuidado-idoso.jpg";
 import { createPageHead } from "@/lib/seo";
@@ -79,7 +79,7 @@ function Index() {
             </h1>
             <p className="mt-4 max-w-lg text-lg leading-relaxed sm:text-xl">
               Atendimento domiciliar em {site.cidade}, com atenção especial à pessoa idosa. Quem
-              atende é o {site.profissional}, fisioterapeuta.
+              atende é o {site.profissional}, pós-graduado em Fisioterapia Geriátrica.
             </p>
 
             <p className="mt-6 text-sm font-bold uppercase tracking-wide">WhatsApp</p>
@@ -228,18 +228,18 @@ function Index() {
               leva esse cuidado até a casa do paciente em {site.cidade}.
             </p>
             <dl className="mt-6 grid gap-4 sm:grid-cols-3">
-              {[
-                { t: "Formação", d: "Pós-Graduação em Fisioterapia Geriátrica" },
-                { t: "Atua desde", d: "2018" },
-                { t: "CREFITO", d: "A ser informado" },
-              ].map((item) => (
+              {ficha.map((item) => (
                 <div
                   key={item.t}
-                  className="rounded-lg border-2 border-dashed border-border bg-card p-4"
+                  className={`rounded-lg border-2 bg-card p-4 ${
+                    item.pendente ? "border-dashed border-border" : "border-border"
+                  }`}
                 >
                   <dt className="text-sm font-bold uppercase tracking-wide text-deep">{item.t}</dt>
                   <dd className="mt-1 text-lg">{item.d}</dd>
-                  <dd className="mt-1 text-base text-muted-foreground">a confirmar</dd>
+                  {item.pendente && (
+                    <dd className="mt-1 text-base text-muted-foreground">a confirmar</dd>
+                  )}
                 </div>
               ))}
             </dl>

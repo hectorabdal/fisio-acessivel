@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { BlocoContato } from "@/components/site/ContatoMagnet";
-import { site } from "@/lib/site";
+import { fichaProfissional as ficha, site } from "@/lib/site";
 import { createPageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/sobre")({
@@ -67,22 +67,22 @@ function Sobre() {
               Quem vai atender na sua casa
             </h1>
             <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
-              {site.profissional}, fisioterapeuta. O cuidado com pessoas idosas é a marca do
-              trabalho dele, e o atendimento acontece na casa do paciente.
+              {site.profissional}, fisioterapeuta com atuação desde 2018 e Pós-Graduação em
+              Fisioterapia Geriátrica. O cuidado com pessoas idosas é a marca do trabalho dele.
             </p>
             <dl className="mt-6 grid gap-3 sm:grid-cols-3">
-              {[
-                { t: "Formação", d: "Pós-Graduação em Fisioterapia Geriátrica" },
-                { t: "Atua desde", d: "2018" },
-                { t: "CREFITO", d: "A ser informado" },
-              ].map((item) => (
+              {ficha.map((item) => (
                 <div
                   key={item.t}
-                  className="rounded-lg border-2 border-dashed border-border bg-card p-4"
+                  className={`rounded-lg border-2 bg-card p-4 ${
+                    item.pendente ? "border-dashed border-border" : "border-border"
+                  }`}
                 >
                   <dt className="text-sm font-bold uppercase tracking-wide text-deep">{item.t}</dt>
                   <dd className="mt-1 text-lg">{item.d}</dd>
-                  <dd className="mt-1 text-base text-muted-foreground">a confirmar</dd>
+                  {item.pendente && (
+                    <dd className="mt-1 text-base text-muted-foreground">a confirmar</dd>
+                  )}
                 </div>
               ))}
             </dl>

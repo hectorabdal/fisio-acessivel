@@ -11,6 +11,14 @@ export const site = {
   instagram: "https://instagram.com/fisio.acessivel",
 };
 
+// Ficha do profissional. "pendente" marca o que ainda depende de confirmação
+// do Dr. Alan e aparece no site com borda tracejada e o aviso "a confirmar".
+export const fichaProfissional = [
+  { t: "Formação", d: "Pós-Graduação em Fisioterapia Geriátrica", pendente: false },
+  { t: "Atua desde", d: "2018", pendente: false },
+  { t: "CREFITO", d: "A ser informado", pendente: true },
+];
+
 export function whatsappLink(
   mensagem = "Olá, Dr. Alan! Gostaria de conversar sobre uma avaliação inicial de fisioterapia domiciliar em Campinas.",
 ) {

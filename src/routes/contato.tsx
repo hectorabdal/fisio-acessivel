@@ -20,7 +20,7 @@ export const Route = createFileRoute("/contato")({
 const perguntas = [
   {
     p: "Quem atende?",
-    r: `${site.profissional}, fisioterapeuta. A formação, o tempo de atuação e o número do CREFITO serão publicados aqui assim que confirmados pelo profissional.`,
+    r: `${site.profissional}, fisioterapeuta com atuação desde 2018 e Pós-Graduação em Fisioterapia Geriátrica. O número do CREFITO será publicado aqui assim que confirmado.`,
   },
   {
     p: "Onde é o atendimento?",
