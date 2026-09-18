@@ -20,9 +20,8 @@ export const Route = createFileRoute("/servicos")({
 const servicos = [
   {
     titulo: "Fisioterapia Geriátrica",
-    resumo: "A principal área de atuação do Dr. Alan",
     texto:
-      "Cuidado voltado às necessidades da pessoa idosa, no ritmo dela. O trabalho considera mobilidade, equilíbrio, força e as tarefas do dia a dia: levantar da cama, caminhar pela casa, subir um degrau, sentar e levantar da cadeira.",
+      "É a principal área de atuação do Dr. Alan. O cuidado é voltado às necessidades da pessoa idosa, no ritmo dela, e considera mobilidade, equilíbrio, força e as tarefas do dia a dia: levantar da cama, caminhar pela casa, subir um degrau, sentar e levantar da cadeira.",
     beneficios: [
       "Atendimento no ambiente onde a pessoa realmente vive",
       "Orientação também para a família e para quem cuida",
@@ -32,7 +31,6 @@ const servicos = [
   },
   {
     titulo: "Fisioterapia Ortopédica",
-    resumo: "Músculos, articulações e recuperação funcional",
     texto:
       "Atendimento voltado às necessidades do sistema musculoesquelético e à recuperação funcional, incluindo acompanhamento após lesões ou cirurgias, conforme a indicação médica de cada caso.",
     beneficios: [
@@ -42,7 +40,6 @@ const servicos = [
   },
   {
     titulo: "Fisioterapia Neurológica",
-    resumo: "Funcionalidade e autonomia possível",
     texto:
       "Fisioterapia voltada às necessidades funcionais de pessoas com condições neurológicas, com foco na qualidade do movimento, na segurança dentro de casa e na maior independência possível para cada situação.",
     beneficios: [
@@ -52,7 +49,6 @@ const servicos = [
   },
   {
     titulo: "Fisioterapia Esportiva",
-    resumo: "Para quem mantém o corpo em movimento",
     texto:
       "Atendimento para pessoas que praticam atividades físicas e querem acompanhamento profissional na rotina, com horários combinados e a comodidade do atendimento em domicílio.",
     beneficios: ["Horários combinados", "Acompanhamento no próprio ambiente de treino ou em casa"],
@@ -89,12 +85,7 @@ function Servicos() {
                   : "plate p-7 sm:p-9"
               }
             >
-              <p
-                className={`text-base font-semibold ${s.destaque ? "" : "text-deep"}`}
-              >
-                {s.resumo}
-              </p>
-              <h2 className="mt-1 text-2xl font-bold sm:text-3xl">{s.titulo}</h2>
+              <h2 className="text-2xl font-bold sm:text-3xl">{s.titulo}</h2>
               <p
                 className={`mt-4 max-w-2xl text-lg leading-relaxed ${
                   s.destaque ? "" : "text-muted-foreground"
@@ -104,7 +95,7 @@ function Servicos() {
               </p>
               <ul className="mt-5 grid gap-3 sm:grid-cols-2">
                 {s.beneficios.map((b) => (
-                  <li key={b} className="flex items-start gap-2.5 text-base">
+                  <li key={b} className="flex items-start gap-2.5 text-lg">
                     <IconeCheck
                       className={`mt-0.5 h-5 w-5 shrink-0 ${s.destaque ? "" : "text-leaf"}`}
                     />

@@ -1,4 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { IconeSeta } from "@/components/site/icons";
 import { editorialReferences } from "@/data/orientacoes";
@@ -28,8 +29,32 @@ export const Route = createFileRoute("/orientacoes/$slug")({
   component: Artigo,
 });
 
+/** Marca no índice a seção que está sendo lida. Sem movimento: só muda o destaque. */
+function useSecaoVisivel(quantidade: number) {
+  const [ativa, setAtiva] = useState<string | null>(null);
+
+  useEffect(() => {
+    const alvos = Array.from(document.querySelectorAll<HTMLElement>("[data-secao]"));
+    if (alvos.length === 0) return;
+    const observador = new IntersectionObserver(
+      (entradas) => {
+        const visivel = entradas
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+        if (visivel) setAtiva(visivel.target.id);
+      },
+      { rootMargin: "-88px 0px -65% 0px", threshold: 0 },
+    );
+    alvos.forEach((alvo) => observador.observe(alvo));
+    return () => observador.disconnect();
+  }, [quantidade]);
+
+  return ativa;
+}
+
 function Artigo() {
   const article = Route.useLoaderData();
+  const secaoAtiva = useSecaoVisivel(article.sections.length);
   const related = article.related.flatMap((slug) => {
     const item = findArticle(slug);
     return item ? [item] : [];
@@ -45,10 +70,7 @@ function Artigo() {
           >
             <ArrowLeft aria-hidden="true" className="h-4 w-4" /> Todas as orientações
           </Link>
-          <p className="mt-6 text-sm font-semibold uppercase tracking-wider text-deep">
-            {article.category}
-          </p>
-          <h1 className="mt-4 max-w-4xl text-3xl font-bold leading-tight sm:text-5xl sm:leading-tight">
+          <h1 className="mt-6 max-w-4xl text-3xl font-bold leading-tight sm:text-5xl sm:leading-tight">
             {article.title}
           </h1>
           <p className="mt-6 max-w-3xl text-xl leading-relaxed text-muted-foreground">
@@ -69,24 +91,29 @@ function Artigo() {
             <p className="text-base font-bold uppercase tracking-wide text-deep">
               Nesta orientação
             </p>
-            <ol className="mt-4 space-y-3 text-base leading-snug">
-              {article.sections.map((section, index) => (
-                <li key={section.heading}>
-                  <a href={`#secao-${index}`} className="hover:underline underline-offset-4">
-                    {section.heading}
+            <ol className="mt-4 text-base leading-snug">
+              {[
+                ...article.sections.map((section, index) => ({
+                  id: `secao-${index}`,
+                  label: section.heading,
+                })),
+                { id: "perguntas", label: "Perguntas frequentes" },
+                { id: "referencias", label: "Referências utilizadas" },
+              ].map((item) => (
+                <li key={item.id}>
+                  <a
+                    href={`#${item.id}`}
+                    aria-current={secaoAtiva === item.id ? "true" : undefined}
+                    className={`flex min-h-11 items-center border-l-2 py-1 pl-3 transition-colors hover:underline underline-offset-4 ${
+                      secaoAtiva === item.id
+                        ? "border-primary font-bold text-deep"
+                        : "border-transparent"
+                    }`}
+                  >
+                    {item.label}
                   </a>
                 </li>
               ))}
-              <li>
-                <a href="#perguntas" className="hover:underline underline-offset-4">
-                  Perguntas frequentes
-                </a>
-              </li>
-              <li>
-                <a href="#referencias" className="hover:underline underline-offset-4">
-                  Referências utilizadas
-                </a>
-              </li>
             </ol>
           </nav>
           <article className="editorial-prose min-w-0 max-w-3xl text-lg leading-relaxed">
@@ -98,7 +125,12 @@ function Artigo() {
             </div>
             {article.alerta && <EditorialUrgencia>{article.alerta}</EditorialUrgencia>}
             {article.sections.map((section, index) => (
-              <section key={section.heading} id={`secao-${index}`} className="mt-10 scroll-mt-28">
+              <section
+                key={section.heading}
+                id={`secao-${index}`}
+                data-secao
+                className="mt-10 scroll-mt-24"
+              >
                 <h2 className="mb-4 text-2xl font-bold leading-snug sm:text-3xl">
                   {section.heading}
                 </h2>
@@ -110,7 +142,7 @@ function Artigo() {
                 )}
               </section>
             ))}
-            <section id="perguntas" className="mt-12 scroll-mt-28">
+            <section id="perguntas" data-secao className="mt-12 scroll-mt-24">
               <h2 className="mb-4 text-2xl font-bold sm:text-3xl">Perguntas frequentes</h2>
               {article.faqs.map((faq) => (
                 <details key={faq.question} className="group border-b border-border">
@@ -126,7 +158,11 @@ function Artigo() {
               <h2 className="mb-4 text-2xl font-bold sm:text-3xl">Para seguir com mais clareza</h2>
               <p>{article.conclusion}</p>
             </section>
-            <section id="referencias" className="mt-12 scroll-mt-28 border-t border-border pt-8">
+            <section
+              id="referencias"
+              data-secao
+              className="mt-12 scroll-mt-24 border-t border-border pt-8"
+            >
               <h2 className="mb-5 text-2xl font-bold">Referências utilizadas</h2>
               <ul className="list-disc space-y-4 pl-5 text-base">
                 {article.references.map((key) => (

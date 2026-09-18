@@ -20,14 +20,16 @@ export function NumeroWhatsApp({ tamanho = "grande" }: { tamanho?: "grande" | "m
   return (
     <a
       href={`tel:${site.telefoneLink}`}
-      className="inline-flex items-center gap-3 rounded-lg py-1 text-highlight-foreground hover:underline"
+      className="inline-flex min-h-12 items-center gap-2.5 rounded-lg py-1 text-highlight-foreground hover:underline sm:gap-3"
     >
       <IconeWhatsApp
-        className={tamanho === "grande" ? "h-8 w-8 shrink-0 sm:h-10 sm:w-10" : "h-6 w-6 shrink-0"}
+        className={tamanho === "grande" ? "h-7 w-7 shrink-0 sm:h-10 sm:w-10" : "h-6 w-6 shrink-0"}
       />
       <span
         className={`numerais font-bold ${
-          tamanho === "grande" ? "text-[2.1rem] sm:text-5xl" : "text-2xl"
+          tamanho === "grande"
+            ? "whitespace-nowrap text-[clamp(2.35rem,5.4vw,3.9rem)] leading-none"
+            : "text-2xl"
         }`}
       >
         {site.whatsappLabel}

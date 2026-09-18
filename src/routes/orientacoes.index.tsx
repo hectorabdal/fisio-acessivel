@@ -54,7 +54,7 @@ function Orientacoes() {
           <figure className="m-0">
             <img
               src={cuidadoIdoso}
-              alt="Fisioterapeuta segurando a mão de uma pessoa idosa durante um atendimento em casa"
+              alt="Imagem ilustrativa de cuidado com a pessoa idosa durante fisioterapia em casa"
               className="aspect-[4/3] w-full rounded-lg border border-border object-cover"
               width={800}
               height={600}
@@ -93,7 +93,11 @@ function Orientacoes() {
               </button>
             ))}
           </div>
-          <div className="grid gap-x-8 gap-y-3 sm:grid-cols-2 lg:grid-cols-3">
+          {/* A troca de filtro esmaece no lugar; com "reduzir movimento" ela é instantânea. */}
+          <div
+            key={category}
+            className="grid gap-x-8 gap-y-3 motion-safe:animate-troca sm:grid-cols-2 lg:grid-cols-3"
+          >
             {visible.map((article) => (
               <EditorialCard key={article.slug} article={article} />
             ))}

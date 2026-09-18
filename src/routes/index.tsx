@@ -88,14 +88,14 @@ function Index() {
     <>
       {/* O ímã: contato primeiro, com o número maior que o nome do serviço. */}
       <section className="px-5 pb-12 pt-8 sm:pt-12">
-        <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[1.15fr_1fr] lg:items-start">
+        <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[1.3fr_1fr] lg:items-start">
           <div className="magnet bg-highlight p-6 text-highlight-foreground sm:p-9">
             <h1 className="text-[2rem] font-bold leading-[1.1] sm:text-5xl">
               Fisioterapia que vai até a casa de quem você ama
             </h1>
             <p className="mt-4 max-w-lg text-lg leading-relaxed sm:text-xl">
               Atendimento domiciliar em {site.cidade}, com atenção especial à pessoa idosa. Quem
-              atende é o {site.profissional}, pós-graduado em Fisioterapia Geriátrica.
+              atende é o {site.profissional}, fisioterapeuta.
             </p>
 
             <p className="mt-6 text-sm font-bold uppercase tracking-wide">WhatsApp</p>
@@ -131,14 +131,14 @@ function Index() {
                   </span>
                   <span>
                     <span className="block text-lg font-bold">{passo.titulo}</span>
-                    <span className="mt-1 block text-base leading-relaxed text-muted-foreground">
+                    <span className="mt-1 block text-lg leading-relaxed text-muted-foreground">
                       {passo.texto}
                     </span>
                   </span>
                 </li>
               ))}
             </ol>
-            <p className="mt-5 text-base text-muted-foreground">
+            <p className="mt-5 text-lg text-muted-foreground">
               A avaliação inicial é combinada pelo WhatsApp, sem compromisso.
             </p>
           </div>
@@ -154,29 +154,38 @@ function Index() {
           Em casa, a fisioterapia trabalha as tarefas reais do dia a dia — com os móveis, o degrau e
           a cadeira que a pessoa usa de verdade.
         </p>
-        <ul className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {tarefas.map(({ Icone, titulo, texto }) => (
-            <li key={titulo} className="magnet bg-primary p-6 text-primary-foreground">
-              <Icone className="h-12 w-12" />
-              <h3 className="mt-4 text-xl font-bold">{titulo}</h3>
-              <p className="mt-2 text-base leading-relaxed">{texto}</p>
+        {/* Uma faixa só, como uma placa de sinalização: a cor forte ocupa a região
+            inteira e cada símbolo divide o campo, em vez de virarem cartões iguais. */}
+        <ul className="magnet mt-9 grid overflow-hidden bg-primary text-primary-foreground sm:grid-cols-2 lg:grid-cols-5">
+          {tarefas.map(({ Icone, titulo, texto }, i) => (
+            <li
+              key={titulo}
+              className={`flex flex-col gap-3 p-6 ${
+                i > 0 ? "border-t border-primary-foreground/25 sm:border-t-0" : ""
+              } ${i % 2 === 1 ? "sm:border-l sm:border-primary-foreground/25" : ""} ${
+                i > 1 ? "sm:border-t sm:border-primary-foreground/25" : ""
+              } lg:border-l lg:border-t-0 lg:first:border-l-0`}
+            >
+              <Icone className="h-14 w-14" />
+              <h3 className="text-xl font-bold leading-snug">{titulo}</h3>
+              <p className="text-lg leading-relaxed">{texto}</p>
             </li>
           ))}
-          <li className="plate flex flex-col justify-center p-6">
-            <p className="text-lg leading-relaxed">
-              Cada caso é diferente. Conte o que está acontecendo e o Dr. Alan avalia o que dá para
-              trabalhar.
-            </p>
-            <WhatsAppButton
-              trackingId="whatsapp_tarefas"
-              variant="outline"
-              className="mt-5 w-full"
-              mensagem="Olá, Dr. Alan! Gostaria de conversar sobre uma avaliação para um familiar idoso."
-            >
-              Contar o meu caso
-            </WhatsAppButton>
-          </li>
         </ul>
+        <div className="plate mt-5 flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between">
+          <p className="max-w-xl text-lg leading-relaxed">
+            Cada caso é diferente. Conte o que está acontecendo e o Dr. Alan avalia o que dá para
+            trabalhar.
+          </p>
+          <WhatsAppButton
+            trackingId="whatsapp_tarefas"
+            variant="outline"
+            className="shrink-0"
+            mensagem="Olá, Dr. Alan! Gostaria de conversar sobre uma avaliação para um familiar idoso."
+          >
+            Contar o meu caso
+          </WhatsAppButton>
+        </div>
       </Secao>
 
       {/* Por que em casa */}
@@ -185,7 +194,7 @@ function Index() {
           <figure className="m-0">
             <img
               src={cuidadoImg}
-              alt="Fisioterapeuta apoiando o braço de um senhor idoso durante um exercício em casa"
+              alt="Imagem ilustrativa de fisioterapia domiciliar: profissional apoiando o braço de uma pessoa idosa em casa"
               loading="lazy"
               width={1200}
               height={900}
@@ -230,22 +239,25 @@ function Index() {
           </div>
           <div>
             <h2 className="text-3xl font-bold sm:text-4xl">{site.profissional}</h2>
-            <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
-              Fisioterapeuta com atuação desde 2018 e Pós-Graduação em Fisioterapia Geriátrica. O
-              cuidado com pessoas idosas é a marca do trabalho dele, e o atendimento domiciliar leva
-              esse cuidado até a casa do paciente em {site.cidade}.
+            <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+              O cuidado com pessoas idosas é a marca do trabalho dele, e o atendimento domiciliar
+              leva esse cuidado até a casa do paciente em {site.cidade}.
             </p>
-            <dl className="mt-6 grid gap-4 sm:grid-cols-2">
-              <div className="rounded-lg bg-secondary p-4">
-                <dt className="text-sm font-bold uppercase tracking-wide text-deep">Formação</dt>
-                <dd className="mt-1 text-base">Pós-Graduação em Fisioterapia Geriátrica</dd>
-              </div>
-              <div className="rounded-lg border-2 border-dashed border-border p-4">
-                <dt className="text-sm font-bold uppercase tracking-wide text-deep">CREFITO</dt>
-                <dd className="mt-1 text-base text-muted-foreground">
-                  A ser informado pelo profissional
-                </dd>
-              </div>
+            <dl className="mt-6 grid gap-4 sm:grid-cols-3">
+              {[
+                { t: "Formação", d: "Pós-Graduação em Fisioterapia Geriátrica" },
+                { t: "Atua desde", d: "2018" },
+                { t: "CREFITO", d: "A ser informado" },
+              ].map((item) => (
+                <div
+                  key={item.t}
+                  className="rounded-lg border-2 border-dashed border-border bg-card p-4"
+                >
+                  <dt className="text-sm font-bold uppercase tracking-wide text-deep">{item.t}</dt>
+                  <dd className="mt-1 text-lg">{item.d}</dd>
+                  <dd className="mt-1 text-base text-muted-foreground">a confirmar</dd>
+                </div>
+              ))}
             </dl>
             <Link
               to="/sobre"
@@ -285,7 +297,7 @@ function Index() {
           texto="Converse com o Dr. Alan sobre o caso e descubra como funciona o atendimento em casa, em Campinas."
         />
         <div className="plate mt-5 flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between">
-          <p className="max-w-xl text-base leading-relaxed text-muted-foreground">
+          <p className="max-w-xl text-lg leading-relaxed text-muted-foreground">
             <strong className="font-bold text-foreground">Depoimentos:</strong> só publicamos
             relatos reais, com autorização de quem escreveu. Ainda não há nenhum publicado.
           </p>

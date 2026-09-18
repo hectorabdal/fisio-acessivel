@@ -20,7 +20,7 @@ export const Route = createFileRoute("/contato")({
 const perguntas = [
   {
     p: "Quem atende?",
-    r: `${site.profissional}, fisioterapeuta com atuação desde 2018 e Pós-Graduação em Fisioterapia Geriátrica. O número do CREFITO será publicado aqui assim que confirmado.`,
+    r: `${site.profissional}, fisioterapeuta. A formação, o tempo de atuação e o número do CREFITO serão publicados aqui assim que confirmados pelo profissional.`,
   },
   {
     p: "Onde é o atendimento?",
@@ -109,7 +109,7 @@ function Contato() {
               {perguntas.map((f) => (
                 <div key={f.p}>
                   <dt className="text-lg font-bold">{f.p}</dt>
-                  <dd className="mt-1 text-base leading-relaxed text-muted-foreground">{f.r}</dd>
+                  <dd className="mt-1 text-lg leading-relaxed text-muted-foreground">{f.r}</dd>
                 </div>
               ))}
             </dl>

@@ -18,12 +18,14 @@ export const Route = createFileRoute("/sobre")({
 
 const fichas = [
   {
-    titulo: "Formação",
-    texto: "Pós-Graduação em Fisioterapia Geriátrica, área que orienta a maior parte do trabalho.",
+    titulo: "Foco do trabalho",
+    texto:
+      "Atendimento de pessoas idosas, com atenção a mobilidade, equilíbrio, força e às tarefas do dia a dia.",
   },
   {
-    titulo: "Experiência",
-    texto: "Atuação profissional em fisioterapia desde 2018, com foco no atendimento de idosos.",
+    titulo: "Quem participa",
+    texto:
+      "O paciente e também a família, que recebe orientação sobre como apoiar o cuidado na rotina.",
   },
   {
     titulo: "Onde atende",
@@ -64,21 +66,25 @@ function Sobre() {
             <h1 className="text-[2rem] font-bold leading-[1.1] sm:text-5xl">
               Quem vai atender na sua casa
             </h1>
-            <p className="mt-5 text-lg leading-relaxed text-muted-foreground sm:text-xl">
-              {site.profissional}, fisioterapeuta com atuação desde 2018 e Pós-Graduação em
-              Fisioterapia Geriátrica. O cuidado com pessoas idosas é a marca do trabalho dele.
+            <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
+              {site.profissional}, fisioterapeuta. O cuidado com pessoas idosas é a marca do
+              trabalho dele, e o atendimento acontece na casa do paciente.
             </p>
-            <dl className="mt-6 grid gap-3 sm:grid-cols-2">
-              <div className="rounded-lg bg-secondary p-4">
-                <dt className="text-sm font-bold uppercase tracking-wide text-deep">Atua desde</dt>
-                <dd className="mt-1 text-base">2018</dd>
-              </div>
-              <div className="rounded-lg border-2 border-dashed border-border p-4">
-                <dt className="text-sm font-bold uppercase tracking-wide text-deep">CREFITO</dt>
-                <dd className="mt-1 text-base text-muted-foreground">
-                  A ser informado pelo profissional
-                </dd>
-              </div>
+            <dl className="mt-6 grid gap-3 sm:grid-cols-3">
+              {[
+                { t: "Formação", d: "Pós-Graduação em Fisioterapia Geriátrica" },
+                { t: "Atua desde", d: "2018" },
+                { t: "CREFITO", d: "A ser informado" },
+              ].map((item) => (
+                <div
+                  key={item.t}
+                  className="rounded-lg border-2 border-dashed border-border bg-card p-4"
+                >
+                  <dt className="text-sm font-bold uppercase tracking-wide text-deep">{item.t}</dt>
+                  <dd className="mt-1 text-lg">{item.d}</dd>
+                  <dd className="mt-1 text-base text-muted-foreground">a confirmar</dd>
+                </div>
+              ))}
             </dl>
           </div>
         </div>
@@ -91,7 +97,7 @@ function Sobre() {
             {fichas.map((f) => (
               <div key={f.titulo} className="plate p-6">
                 <h3 className="text-xl font-bold">{f.titulo}</h3>
-                <p className="mt-2 text-base leading-relaxed text-muted-foreground">{f.texto}</p>
+                <p className="mt-2 text-lg leading-relaxed text-muted-foreground">{f.texto}</p>
               </div>
             ))}
           </div>

@@ -34,9 +34,8 @@ export function EditorialCard({ article }: { article: EditorialArticle }) {
         params={{ slug: article.slug }}
         className="flex h-full flex-col border-t-2 border-border py-6 transition-colors hover:border-primary"
       >
-        <p className="text-base font-semibold text-deep">{article.category}</p>
-        <h3 className="mt-3 text-xl font-bold leading-snug">{article.title}</h3>
-        <p className="mt-3 mb-5 text-base leading-relaxed text-muted-foreground">
+        <h3 className="text-xl font-bold leading-snug">{article.title}</h3>
+        <p className="mt-3 mb-5 text-lg leading-relaxed text-muted-foreground">
           {article.description}
         </p>
         <span className="mt-auto inline-flex items-center gap-2 font-semibold text-deep underline underline-offset-4">
