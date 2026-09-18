@@ -104,10 +104,8 @@ function Artigo() {
                   <a
                     href={`#${item.id}`}
                     aria-current={secaoAtiva === item.id ? "true" : undefined}
-                    className={`flex min-h-11 items-center border-l-2 py-1 pl-3 transition-colors hover:underline underline-offset-4 ${
-                      secaoAtiva === item.id
-                        ? "border-primary font-bold text-deep"
-                        : "border-transparent"
+                    className={`flex min-h-11 items-center rounded-md px-2 py-1 transition-colors hover:underline underline-offset-4 ${
+                      secaoAtiva === item.id ? "bg-secondary font-bold text-deep" : ""
                     }`}
                   >
                     {item.label}

@@ -86,6 +86,19 @@
 
   /* Troca de filtro nas Orientações: esmaece no lugar, sem deslocamento. */
   --animate-troca: troca 160ms ease-out;
+
+  /* O momento da página: o ímã sendo pousado na porta da geladeira. Só
+     transform, para o conteúdo nascer visível, e uma vez só. */
+  --animate-pousar: pousar 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes pousar {
+  from {
+    transform: translateY(-10px) rotate(-0.6deg);
+  }
+  to {
+    transform: none;
+  }
 }
 
 @keyframes troca {

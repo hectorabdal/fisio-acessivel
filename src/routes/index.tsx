@@ -26,27 +26,11 @@ export const Route = createFileRoute("/")({
 });
 
 const tarefas = [
-  { Icone: IconeCama, titulo: "Levantar da cama", texto: "Sair da cama com segurança, sem puxão." },
-  {
-    Icone: IconeCadeira,
-    titulo: "Sentar e levantar",
-    texto: "Da poltrona, da cama, do vaso: força de perna e apoio certo.",
-  },
-  {
-    Icone: IconeCaminhar,
-    titulo: "Caminhar pela casa",
-    texto: "Equilíbrio, passo mais firme e menos medo de cair.",
-  },
-  {
-    Icone: IconeDegrau,
-    titulo: "Subir o degrau",
-    texto: "Degrau da entrada, escada, meio-fio na porta de casa.",
-  },
-  {
-    Icone: IconeBanheiro,
-    titulo: "Banho com segurança",
-    texto: "Entrar e sair do banheiro, o lugar de mais risco de queda.",
-  },
+  { Icone: IconeCama, titulo: "Levantar da cama", texto: "Sair da cama sem puxão." },
+  { Icone: IconeCadeira, titulo: "Sentar e levantar", texto: "Da poltrona, da cama, do vaso." },
+  { Icone: IconeCaminhar, titulo: "Caminhar pela casa", texto: "Passo firme, menos medo de cair." },
+  { Icone: IconeDegrau, titulo: "Subir o degrau", texto: "Degrau da entrada e escada." },
+  { Icone: IconeBanheiro, titulo: "Banho com segurança", texto: "Entrar e sair do banheiro." },
 ];
 
 const passos = [
@@ -89,7 +73,7 @@ function Index() {
       {/* O ímã: contato primeiro, com o número maior que o nome do serviço. */}
       <section className="px-5 pb-12 pt-8 sm:pt-12">
         <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[1.3fr_1fr] lg:items-start">
-          <div className="magnet bg-highlight p-6 text-highlight-foreground sm:p-9">
+          <div className="magnet bg-highlight p-6 text-highlight-foreground motion-safe:animate-pousar sm:p-9">
             <h1 className="text-[2rem] font-bold leading-[1.1] sm:text-5xl">
               Fisioterapia que vai até a casa de quem você ama
             </h1>
@@ -172,8 +156,8 @@ function Index() {
             </li>
           ))}
         </ul>
-        <div className="plate mt-5 flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between">
-          <p className="max-w-xl text-lg leading-relaxed">
+        <div className="plate mx-auto mt-5 flex max-w-3xl flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between">
+          <p className="max-w-md text-lg leading-relaxed">
             Cada caso é diferente. Conte o que está acontecendo e o Dr. Alan avalia o que dá para
             trabalhar.
           </p>
