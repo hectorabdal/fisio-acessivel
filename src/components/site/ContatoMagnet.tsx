@@ -54,7 +54,9 @@ export function BlocoContato({
   className?: string;
 }) {
   return (
-    <div className={`magnet bg-highlight p-6 text-highlight-foreground sm:p-8 ${className}`}>
+    <div
+      className={`magnet recorte bg-highlight p-6 text-highlight-foreground sm:p-8 ${className}`}
+    >
       <h2 className="text-2xl font-bold sm:text-3xl">{titulo}</h2>
       <p className="mt-3 max-w-md text-lg leading-relaxed">{texto}</p>
 

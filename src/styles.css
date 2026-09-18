@@ -144,6 +144,21 @@
   box-shadow: var(--shadow-magnet);
 }
 
+/* Linha de recorte da peça impressa, como num ímã que veio da gráfica. */
+.recorte {
+  position: relative;
+}
+
+.recorte::before {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border: 1px dashed currentColor;
+  border-radius: 4px;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
 /* Numerais grandes de telefone: largura fixa para não dançarem. */
 @utility numerais {
   font-variant-numeric: tabular-nums;
