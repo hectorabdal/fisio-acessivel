@@ -157,7 +157,7 @@ function Index() {
         <ul className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {tarefas.map(({ Icone, titulo, texto }) => (
             <li key={titulo} className="magnet bg-primary p-6 text-primary-foreground">
-              <Icone className="h-11 w-11" />
+              <Icone className="h-12 w-12" />
               <h3 className="mt-4 text-xl font-bold">{titulo}</h3>
               <p className="mt-2 text-base leading-relaxed">{texto}</p>
             </li>
@@ -259,19 +259,19 @@ function Index() {
 
       {hasEditorialContent && (
         <Secao>
-          <div className="grid gap-6 lg:grid-cols-[1.3fr_1fr] lg:items-center">
+          <div className="plate flex flex-col gap-5 p-6 sm:p-8 lg:flex-row lg:items-center lg:justify-between">
             <div>
-              <h2 className="text-3xl font-bold sm:text-4xl">
+              <h2 className="text-2xl font-bold sm:text-3xl">
                 Dúvidas sobre quedas, força e caminhada
               </h2>
-              <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-                Orientações escritas em linguagem simples sobre mobilidade, envelhecimento e quando
-                procurar ajuda, com as fontes citadas.
+              <p className="mt-3 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+                Orientações em linguagem simples sobre mobilidade, envelhecimento e quando procurar
+                ajuda, com as fontes citadas.
               </p>
             </div>
             <Link
               to="/orientacoes"
-              className="inline-flex min-h-12 items-center justify-center rounded-lg border-2 border-primary bg-card px-6 py-3 text-base font-semibold text-deep transition-colors hover:bg-secondary lg:justify-self-end"
+              className="inline-flex min-h-12 shrink-0 items-center justify-center rounded-lg border-2 border-primary bg-card px-6 py-3 text-base font-semibold text-deep transition-colors hover:bg-secondary"
             >
               Ler as orientações
             </Link>
@@ -284,10 +284,10 @@ function Index() {
           titulo="Seu pai ou sua mãe precisa de fisioterapia?"
           texto="Converse com o Dr. Alan sobre o caso e descubra como funciona o atendimento em casa, em Campinas."
         />
-        <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-base text-muted-foreground">
-            Depoimentos: só publicamos relatos reais, com autorização de quem escreveu. Ainda não há
-            nenhum publicado.
+        <div className="plate mt-5 flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between">
+          <p className="max-w-xl text-base leading-relaxed text-muted-foreground">
+            <strong className="font-bold text-foreground">Depoimentos:</strong> só publicamos
+            relatos reais, com autorização de quem escreveu. Ainda não há nenhum publicado.
           </p>
           <Link
             to="/contato"

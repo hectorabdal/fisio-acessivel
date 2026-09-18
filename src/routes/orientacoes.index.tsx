@@ -31,10 +31,7 @@ function Orientacoes() {
       <section className="bg-gradient-soft px-5 py-12 sm:py-16">
         <div className="mx-auto grid max-w-6xl items-center gap-10 md:grid-cols-[1.4fr_1fr]">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-widest text-deep">
-              Orientações · Fisio Acessível
-            </p>
-            <h1 className="mt-4 text-4xl font-bold leading-tight tracking-tight sm:text-5xl">
+            <h1 className="text-[2rem] font-bold leading-[1.1] sm:text-5xl">
               Informação para cuidar.
               <br />
               <span className="text-deep">Respeito para envelhecer.</span>
@@ -54,13 +51,18 @@ function Orientacoes() {
               </Link>
             )}
           </div>
-          <img
-            src={cuidadoIdoso}
-            alt="Cuidado e atenção à pessoa idosa"
-            className="aspect-[4/3] w-full rounded-3xl object-cover shadow-soft"
-            width={800}
-            height={600}
-          />
+          <figure className="m-0">
+            <img
+              src={cuidadoIdoso}
+              alt="Fisioterapeuta segurando a mão de uma pessoa idosa durante um atendimento em casa"
+              className="aspect-[4/3] w-full rounded-lg border border-border object-cover"
+              width={800}
+              height={600}
+            />
+            <figcaption className="mt-2 text-sm text-muted-foreground">
+              Imagem ilustrativa.
+            </figcaption>
+          </figure>
         </div>
       </section>
       <div className="px-5 py-12">
@@ -85,7 +87,7 @@ function Orientacoes() {
                 key={item}
                 aria-pressed={category === item}
                 onClick={() => setCategory(item)}
-                className={`min-h-11 rounded-full border px-4 py-2.5 text-sm font-medium transition-colors ${category === item ? "border-deep bg-deep text-white" : "border-border bg-card text-foreground hover:bg-secondary"}`}
+                className={`min-h-12 rounded-lg border-2 px-4 py-2.5 text-base font-medium transition-colors ${category === item ? "border-deep bg-deep text-primary-foreground" : "border-border bg-card text-foreground hover:bg-secondary"}`}
               >
                 {item}
               </button>

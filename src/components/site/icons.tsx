@@ -1,15 +1,21 @@
-type IconProps = { className?: string };
+type IconProps = { className?: string | undefined };
 
 // Pictogramas das tarefas da casa. Traço único de 1.75, grade de 24,
 // desenhados para o mesmo peso visual das placas de sinalização.
-function Tracado({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+function Tracado({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode;
+  className?: string | undefined;
+}) {
   return (
     <svg
       viewBox="0 0 24 24"
       aria-hidden="true"
       fill="none"
       stroke="currentColor"
-      strokeWidth="1.75"
+      strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
@@ -104,6 +110,22 @@ export function IconeImprimir({ className }: IconProps) {
       <path d="M7 9V4h10v5" />
       <path d="M7 18H5a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2" />
       <path d="M7 14h10v6H7z" />
+    </Tracado>
+  );
+}
+
+export function IconeSeta({ className }: IconProps) {
+  return (
+    <Tracado className={className}>
+      <path d="M6 9.5 12 15.5 18 9.5" />
+    </Tracado>
+  );
+}
+
+export function IconeCheck({ className }: IconProps) {
+  return (
+    <Tracado className={className}>
+      <path d="M4.5 12.5 9.5 18 19.5 6" />
     </Tracado>
   );
 }

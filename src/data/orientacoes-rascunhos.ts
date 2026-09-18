@@ -75,6 +75,8 @@ export const draftArticles: EditorialArticle[] = [
       "Depois de um tropeço ou de uma queda, a família pode ficar receosa até com um caminho curto dentro de casa. A preocupação merece escuta, inclusive quando a pessoa diz que passou a evitar atividades por medo de cair.",
     answer:
       "A fisioterapia pode participar da prevenção com avaliação do movimento e exercícios adequados à pessoa. Mas as quedas podem ter várias causas: o cuidado também pode exigir avaliação médica e de outros profissionais.",
+    alerta:
+      "Após uma queda com dor intensa, deformidade ou incapacidade de se mover, procure atendimento de urgência antes de qualquer orientação deste texto.",
     sections: [
       {
         heading: "Por que uma queda merece atenção?",
@@ -97,7 +99,7 @@ export const draftArticles: EditorialArticle[] = [
       },
       {
         heading: "Quando procurar avaliação profissional?",
-        text: "Uma queda, episódios de quase cair ou insegurança que restringe a rotina justificam avaliação. Leve informações sobre o episódio e os medicamentos em uso. Não interrompa remédios por conta própria. Após uma queda com dor intensa, deformidade ou incapacidade de se mover, procure atendimento de urgência.",
+        text: "Uma queda, episódios de quase cair ou insegurança que restringe a rotina justificam avaliação. Leve informações sobre o episódio e os medicamentos em uso. Não interrompa remédios por conta própria.",
         reference: "ednor",
       },
     ],

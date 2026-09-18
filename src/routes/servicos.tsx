@@ -1,5 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { WhatsAppButton } from "@/components/site/WhatsAppButton";
+import { BlocoContato } from "@/components/site/ContatoMagnet";
+import { IconeCheck } from "@/components/site/icons";
+import { site } from "@/lib/site";
 import { createPageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/servicos")({
@@ -17,9 +20,9 @@ export const Route = createFileRoute("/servicos")({
 const servicos = [
   {
     titulo: "Fisioterapia Geriátrica",
-    resumo: "Nossa principal área de atuação.",
+    resumo: "A principal área de atuação do Dr. Alan",
     texto:
-      "Cuidado fisioterapêutico voltado às necessidades da pessoa idosa, respeitando suas características, seu ritmo e seus objetivos. O trabalho considera mobilidade, equilíbrio, força e as tarefas do dia a dia — levantar da cama, caminhar pela casa, subir um degrau, sentar e levantar da cadeira.",
+      "Cuidado voltado às necessidades da pessoa idosa, no ritmo dela. O trabalho considera mobilidade, equilíbrio, força e as tarefas do dia a dia: levantar da cama, caminhar pela casa, subir um degrau, sentar e levantar da cadeira.",
     beneficios: [
       "Atendimento no ambiente onde a pessoa realmente vive",
       "Orientação também para a família e para quem cuida",
@@ -29,9 +32,9 @@ const servicos = [
   },
   {
     titulo: "Fisioterapia Ortopédica",
-    resumo: "Músculos, articulações e recuperação funcional.",
+    resumo: "Músculos, articulações e recuperação funcional",
     texto:
-      "Atendimento direcionado às necessidades relacionadas ao sistema musculoesquelético e à recuperação funcional, incluindo acompanhamento após lesões ou procedimentos cirúrgicos, conforme a indicação médica de cada caso.",
+      "Atendimento voltado às necessidades do sistema musculoesquelético e à recuperação funcional, incluindo acompanhamento após lesões ou cirurgias, conforme a indicação médica de cada caso.",
     beneficios: [
       "Acompanhamento sem sair de casa",
       "Exercícios adaptados ao espaço e à rotina do paciente",
@@ -39,7 +42,7 @@ const servicos = [
   },
   {
     titulo: "Fisioterapia Neurológica",
-    resumo: "Funcionalidade e autonomia possível.",
+    resumo: "Funcionalidade e autonomia possível",
     texto:
       "Fisioterapia voltada às necessidades funcionais de pessoas com condições neurológicas, com foco na qualidade do movimento, na segurança dentro de casa e na maior independência possível para cada situação.",
     beneficios: [
@@ -49,9 +52,9 @@ const servicos = [
   },
   {
     titulo: "Fisioterapia Esportiva",
-    resumo: "Para quem mantém o corpo em movimento.",
+    resumo: "Para quem mantém o corpo em movimento",
     texto:
-      "Atendimento fisioterapêutico para pessoas que praticam atividades físicas e esportivas e desejam acompanhamento profissional na sua rotina, com horários combinados e a comodidade do atendimento em domicílio.",
+      "Atendimento para pessoas que praticam atividades físicas e querem acompanhamento profissional na rotina, com horários combinados e a comodidade do atendimento em domicílio.",
     beneficios: ["Horários combinados", "Acompanhamento no próprio ambiente de treino ou em casa"],
   },
 ];
@@ -59,59 +62,53 @@ const servicos = [
 function Servicos() {
   return (
     <>
-      <section className="bg-gradient-soft px-5 py-16 sm:py-20">
+      <section className="px-5 pb-10 pt-10 sm:pt-14">
         <div className="mx-auto max-w-4xl">
-          <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-            Fisioterapia em domicílio em Campinas
+          <h1 className="text-[2rem] font-bold leading-[1.1] sm:text-5xl">
+            Fisioterapia em domicílio em {site.cidade}
           </h1>
-          <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
+          <p className="mt-5 text-lg leading-relaxed text-muted-foreground sm:text-xl">
             Todas as áreas abaixo são atendidas na casa do paciente, com atenção especial à pessoa
             idosa. Se você não tem certeza de qual é o caso do seu familiar, conversamos antes — sem
             compromisso.
           </p>
-          <div className="mt-8">
-            <WhatsAppButton trackingId="whatsapp_servicos">
-              Solicitar avaliação inicial pelo WhatsApp
-            </WhatsAppButton>
-          </div>
+          <WhatsAppButton trackingId="whatsapp_servicos" className="mt-7">
+            Solicitar avaliação inicial
+          </WhatsAppButton>
         </div>
       </section>
 
-      <section className="px-5 py-16 sm:py-20">
-        <div className="mx-auto grid max-w-6xl gap-6">
+      <section className="px-5 py-10">
+        <div className="mx-auto grid max-w-6xl gap-5">
           {servicos.map((s) => (
             <article
               key={s.titulo}
-              className={`rounded-3xl border p-8 shadow-soft sm:p-10 ${
+              className={
                 s.destaque
-                  ? "border-primary/40 bg-gradient-brand text-primary-foreground"
-                  : "border-border bg-card"
-              }`}
+                  ? "magnet bg-primary p-7 text-primary-foreground sm:p-9"
+                  : "plate p-7 sm:p-9"
+              }
             >
               <p
-                className={`text-sm font-semibold uppercase tracking-wide ${
-                  s.destaque ? "opacity-90" : "text-primary"
-                }`}
+                className={`text-base font-semibold ${s.destaque ? "" : "text-deep"}`}
               >
                 {s.resumo}
               </p>
-              <h2
-                className={`mt-2 text-2xl font-bold sm:text-3xl ${s.destaque ? "" : "text-foreground"}`}
-              >
-                {s.titulo}
-              </h2>
+              <h2 className="mt-1 text-2xl font-bold sm:text-3xl">{s.titulo}</h2>
               <p
                 className={`mt-4 max-w-3xl text-lg leading-relaxed ${
-                  s.destaque ? "opacity-95" : "text-muted-foreground"
+                  s.destaque ? "" : "text-muted-foreground"
                 }`}
               >
                 {s.texto}
               </p>
-              <ul className="mt-5 grid gap-2 sm:grid-cols-2">
+              <ul className="mt-5 grid gap-3 sm:grid-cols-2">
                 {s.beneficios.map((b) => (
-                  <li key={b} className="flex items-start gap-2 text-base">
-                    <span className={s.destaque ? "opacity-90" : "text-leaf"}>✓</span>
-                    <span className={s.destaque ? "opacity-95" : "text-foreground"}>{b}</span>
+                  <li key={b} className="flex items-start gap-2.5 text-base">
+                    <IconeCheck
+                      className={`mt-0.5 h-5 w-5 shrink-0 ${s.destaque ? "" : "text-leaf"}`}
+                    />
+                    <span>{b}</span>
                   </li>
                 ))}
               </ul>
@@ -120,20 +117,13 @@ function Servicos() {
         </div>
       </section>
 
-      <section className="px-5 pb-16">
-        <div className="mx-auto max-w-4xl rounded-3xl border border-border bg-secondary p-8 text-center sm:p-12">
-          <h2 className="text-2xl font-bold text-foreground sm:text-3xl">
-            Não sabe qual atendimento é o mais indicado?
-          </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-lg text-muted-foreground">
-            Entre em contato pelo WhatsApp para conversar sobre sua necessidade e verificar as
-            possibilidades de atendimento.
-          </p>
-          <div className="mt-7 flex justify-center">
-            <WhatsAppButton trackingId="whatsapp_servicos">
-              Quero conversar com o Dr. Alan
-            </WhatsAppButton>
-          </div>
+      <section className="px-5 pb-12">
+        <div className="mx-auto max-w-6xl">
+          <BlocoContato
+            titulo="Não sabe qual atendimento é o mais indicado?"
+            texto="Conte o que está acontecendo. O Dr. Alan escuta o caso e diz se a fisioterapia domiciliar faz sentido."
+            mensagem="Olá, Dr. Alan! Não sei qual tipo de fisioterapia meu familiar precisa. Podemos conversar?"
+          />
         </div>
       </section>
     </>

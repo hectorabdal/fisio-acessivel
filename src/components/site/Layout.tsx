@@ -25,7 +25,7 @@ export function Layout({ children }: { children: ReactNode }) {
         target="_blank"
         rel="noopener noreferrer"
         data-whatsapp-event="whatsapp_floating"
-        className="fixed bottom-4 right-4 z-50 flex min-h-14 items-center gap-2.5 rounded-lg bg-primary px-5 text-base font-semibold text-primary-foreground shadow-magnet transition-[background-color,scale] duration-150 ease-out hover:bg-deep motion-safe:active:scale-[0.98] sm:bottom-6 sm:right-6"
+        className="fixed inset-x-0 bottom-0 z-50 flex min-h-14 items-center justify-center gap-2.5 bg-primary px-5 pb-[max(0.5rem,env(safe-area-inset-bottom))] pt-2 text-base font-semibold text-primary-foreground shadow-magnet transition-[background-color,scale] duration-150 ease-out hover:bg-deep motion-safe:active:scale-[0.98] sm:inset-x-auto sm:bottom-6 sm:right-6 sm:rounded-lg sm:px-5 sm:py-0"
       >
         <IconeWhatsApp className="h-7 w-7 shrink-0" />
         WhatsApp

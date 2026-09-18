@@ -15,6 +15,8 @@ export type EditorialArticle = {
   review: EditorialReview | null;
   intro: string;
   answer: string;
+  /** Sinal de urgência do assunto. Aparece em destaque no topo do artigo. */
+  alerta?: string;
   sections: { heading: string; text: string; reference?: string }[];
   faqs: { question: string; answer: string }[];
   conclusion: string;

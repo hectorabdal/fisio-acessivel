@@ -1,41 +1,47 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowUpRight } from "lucide-react";
 import { type EditorialArticle } from "@/data/orientacoes";
 import { editorialPreview, isPublished } from "@/lib/editorial";
-import { WhatsAppButton } from "./WhatsAppButton";
-import { site } from "@/lib/site";
+import { BlocoContato } from "./ContatoMagnet";
+import { IconeAviso } from "./icons";
 
 export function EditorialNotice() {
   if (!editorialPreview) return null;
   return (
-    <p className="border-b border-border bg-secondary px-5 py-3 text-center text-sm text-foreground">
+    <p className="border-b border-border bg-secondary px-5 py-3 text-center text-base text-foreground">
       Versão para revisão profissional · Os rascunhos não estão publicados.
     </p>
   );
 }
 
+/** Aviso raro: só entra quando o texto trata de procurar atendimento de urgência. */
+export function EditorialUrgencia({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="mt-8 flex gap-4 rounded-lg border-2 border-destructive bg-card p-5">
+      <IconeAviso className="mt-0.5 h-6 w-6 shrink-0 text-destructive" />
+      <div>
+        <p className="text-base font-bold text-destructive">Procure atendimento de urgência</p>
+        <p className="mt-1 text-base leading-relaxed">{children}</p>
+      </div>
+    </div>
+  );
+}
+
 export function EditorialCard({ article }: { article: EditorialArticle }) {
   return (
-    <article className="flex h-full flex-col border-t-2 border-primary/40 py-7">
-      <p className="text-sm font-semibold text-deep">{article.category}</p>
-      <h3 className="mt-4 text-2xl font-bold leading-snug tracking-tight">
-        <Link
-          to="/orientacoes/$slug"
-          params={{ slug: article.slug }}
-          className="hover:underline underline-offset-4"
-        >
-          {article.title}
-        </Link>
-      </h3>
-      <p className="mt-4 mb-6 text-base leading-relaxed text-muted-foreground">
-        {article.description}
-      </p>
+    <article className="h-full">
       <Link
         to="/orientacoes/$slug"
         params={{ slug: article.slug }}
-        className="mt-auto flex min-h-11 items-center justify-between gap-3 font-semibold text-deep"
+        className="flex h-full flex-col border-t-2 border-border py-6 transition-colors hover:border-primary"
       >
-        Ler orientação <ArrowUpRight aria-hidden="true" className="h-5 w-5 shrink-0" />
+        <p className="text-base font-semibold text-deep">{article.category}</p>
+        <h3 className="mt-3 text-xl font-bold leading-snug">{article.title}</h3>
+        <p className="mt-3 mb-5 text-base leading-relaxed text-muted-foreground">
+          {article.description}
+        </p>
+        <span className="mt-auto inline-flex items-center gap-2 font-semibold text-deep underline underline-offset-4">
+          Ler orientação
+        </span>
       </Link>
     </article>
   );
@@ -43,25 +49,13 @@ export function EditorialCard({ article }: { article: EditorialArticle }) {
 
 export function EditorialContact() {
   return (
-    <section className="mx-auto mt-16 max-w-6xl rounded-3xl border border-border bg-secondary p-7 sm:p-10">
-      <p className="text-sm font-semibold uppercase tracking-wide text-deep">
-        Atendimento domiciliar em {site.cidade}
-      </p>
-      <h2 className="mt-3 max-w-3xl text-2xl font-bold sm:text-3xl">
-        Está preocupado com a mobilidade de um familiar?
-      </h2>
-      <p className="mt-4 max-w-3xl text-lg leading-relaxed text-muted-foreground">
-        A {site.nome} realiza atendimento fisioterapêutico domiciliar em {site.cidade}. Converse com
-        o {site.profissional} para entender se essa modalidade pode ser adequada e solicitar
-        informações sobre a avaliação inicial.
-      </p>
-      <WhatsAppButton
-        trackingId="whatsapp_orientacoes"
-        className="mt-6 max-w-full bg-deep text-white"
-      >
-        Conversar pelo WhatsApp
-      </WhatsAppButton>
-    </section>
+    <div className="mx-auto mt-14 max-w-6xl">
+      <BlocoContato
+        titulo="Preocupado com a mobilidade de um familiar?"
+        texto="Converse com o Dr. Alan sobre o caso e veja se a fisioterapia em casa faz sentido para a sua família."
+        mensagem="Olá, Dr. Alan! Li uma orientação no site e gostaria de conversar sobre um familiar."
+      />
+    </div>
   );
 }
 
@@ -74,8 +68,8 @@ function formatDate(value: string) {
 export function EditorialReview({ article }: { article: EditorialArticle }) {
   if (isPublished(article) && article.review)
     return (
-      <div className="mt-10 rounded-2xl border border-border p-6 text-base">
-        <p className="font-semibold">Revisão profissional: {article.review.name}</p>
+      <div className="mt-10 rounded-lg border border-border p-6 text-base">
+        <p className="font-bold">Revisão profissional: {article.review.name}</p>
         {article.review.credential && <p className="mt-2">{article.review.credential}</p>}
         <p className="mt-2 text-muted-foreground">
           Revisado em {formatDate(article.review.reviewedAt)}.
@@ -83,11 +77,11 @@ export function EditorialReview({ article }: { article: EditorialArticle }) {
       </div>
     );
   return (
-    <div className="mt-10 rounded-2xl border border-dashed border-border bg-secondary/40 p-6 text-base">
-      <p className="font-semibold">Revisão profissional pendente</p>
+    <div className="mt-10 rounded-lg border-2 border-dashed border-border bg-secondary p-6 text-base">
+      <p className="font-bold">Revisão profissional pendente</p>
       <p className="mt-2 text-muted-foreground">
-        Espaço reservado para identificação e data da revisão, após aprovação e autorização do Dr.
-        Alan Oliveira Costa.
+        Espaço reservado para a identificação e a data da revisão, após aprovação e autorização do
+        Dr. Alan Oliveira Costa.
       </p>
     </div>
   );
