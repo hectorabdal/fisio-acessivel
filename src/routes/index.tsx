@@ -1,17 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { WhatsAppButton } from "@/components/site/WhatsAppButton";
-import { BlocoContato, NumeroWhatsApp, SalvarContatoBotao } from "@/components/site/ContatoMagnet";
-import {
-  IconeBanheiro,
-  IconeCadeira,
-  IconeCama,
-  IconeCaminhar,
-  IconeDegrau,
-  IconeWhatsApp,
-} from "@/components/site/icons";
-import { fichaProfissional as ficha, site, whatsappLink } from "@/lib/site";
+import { BlocoContato } from "@/components/site/ContatoMagnet";
+import { IconeCama, IconeCadeira, IconeCaminhar, IconeDegrau } from "@/components/site/icons";
+import { site } from "@/lib/site";
 import { hasEditorialContent } from "@/lib/editorial";
-import cuidadoImg from "@/assets/cuidado-idoso.jpg";
+import retrato from "@/assets/alan-preview/retrato-tratado.jpg";
+import escuta from "@/assets/alan-preview/escuta.jpg";
+import movimento from "@/assets/alan-preview/movimento.jpg";
 import { createPageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/")({
@@ -20,279 +15,301 @@ export const Route = createFileRoute("/")({
       path: "/",
       title: "Fisioterapia Domiciliar em Campinas | Fisio Acessível",
       description:
-        "Fisioterapia domiciliar em Campinas com atenção especial à pessoa idosa. Conheça o atendimento do Dr. Alan Oliveira Costa e fale pelo WhatsApp.",
+        "Conheça o Dr. Alan Oliveira Costa e a proposta de fisioterapia domiciliar em Campinas, com atenção especial à pessoa idosa.",
     }),
   component: Index,
 });
 
-const tarefas = [
-  { Icone: IconeCama, titulo: "Levantar da cama", texto: "No quarto, sair da cama sem puxão." },
-  { Icone: IconeCadeira, titulo: "Sentar e levantar", texto: "Da poltrona, da cama, do vaso." },
-  { Icone: IconeCaminhar, titulo: "Caminhar pela casa", texto: "Passo firme, menos medo de cair." },
-  { Icone: IconeDegrau, titulo: "Subir o degrau", texto: "Degrau da entrada e escada." },
-  { Icone: IconeBanheiro, titulo: "Banho com segurança", texto: "Entrar e sair do banheiro." },
-];
-
-const passos = [
+const situacoes = [
   {
-    n: 1,
-    titulo: "Você manda uma mensagem",
-    texto: "Conta o que está acontecendo. Não precisa saber qual tratamento procurar.",
+    Icone: IconeCama,
+    titulo: "Sair da cama ficou difícil",
+    texto: "Quando uma tarefa que fazia parte da rotina começa a exigir ajuda.",
   },
   {
-    n: 2,
-    titulo: "O Dr. Alan responde",
-    texto: "Ele escuta o caso, tira dúvidas e verifica se dá para atender no seu endereço.",
+    Icone: IconeCadeira,
+    titulo: "Levantar da cadeira exige apoio",
+    texto: "A poltrona da sala também pode revelar uma mudança no dia a dia.",
   },
   {
-    n: 3,
-    titulo: "Avaliação inicial em casa",
-    texto: "Sendo possível, vocês combinam dia e horário para a primeira visita.",
+    Icone: IconeCaminhar,
+    titulo: "Caminhar traz insegurança",
+    texto: "Medo de cair ou dificuldade para circular pela própria casa.",
+  },
+  {
+    Icone: IconeDegrau,
+    titulo: "O degrau virou um obstáculo",
+    texto: "Pequenos trajetos podem se tornar grandes preocupações para a família.",
   },
 ];
 
-function Secao({
-  children,
-  className = "",
-  id,
-}: {
-  children: React.ReactNode;
-  className?: string;
-  id?: string;
-}) {
-  return (
-    <section id={id} className={`px-5 py-14 sm:py-18 ${className}`}>
-      <div className="mx-auto max-w-6xl">{children}</div>
-    </section>
-  );
-}
+const primeiraVisita = [
+  {
+    titulo: "A história de quem será atendido",
+    texto:
+      "O que mudou, quais são as dificuldades e o que a pessoa gostaria de fazer com mais facilidade.",
+  },
+  {
+    titulo: "A rotina e o espaço da casa",
+    texto:
+      "Os caminhos, os móveis e as atividades que fazem parte do dia a dia entram na conversa.",
+  },
+  {
+    titulo: "As dúvidas e os próximos passos",
+    texto:
+      "A avaliação ajuda a conversar sobre as necessidades e a proposta de acompanhamento para cada caso.",
+  },
+];
 
 function Index() {
   return (
     <>
-      {/* O ímã: contato primeiro, com o número maior que o nome do serviço. */}
-      <section className="px-5 pb-12 pt-8 sm:pt-12">
-        <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[1.3fr_1fr] lg:items-start">
-          <div className="magnet recorte bg-highlight p-6 text-highlight-foreground motion-safe:animate-pousar sm:p-9">
-            <h1 className="text-[2rem] font-bold leading-[1.1] sm:text-5xl">
-              Fisioterapia que vai até a casa de quem você ama
-            </h1>
-            <p className="mt-4 max-w-lg text-lg leading-relaxed sm:text-xl">
-              Atendimento domiciliar em {site.cidade}, com atenção especial à pessoa idosa. Quem
-              atende é o {site.profissional}, pós-graduado em Fisioterapia Geriátrica.
+      <section className="home-intro px-5 pb-14 pt-8 sm:pb-20 sm:pt-12">
+        <div className="mx-auto grid max-w-6xl items-center gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16">
+          <div className="hero-copy min-w-0">
+            <p className="mb-5 flex items-center gap-3 text-lg font-semibold text-deep">
+              <span className="h-px w-9 bg-primary" aria-hidden="true" />
+              Fisioterapia domiciliar em Campinas
             </p>
-
-            <p className="mt-6 text-sm font-bold uppercase tracking-wide">WhatsApp</p>
-            <NumeroWhatsApp />
-
-            <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <h1 className="max-w-2xl text-[2.4rem] font-bold leading-[1.08] sm:text-6xl">
+              O cuidado começa
+              <br className="hidden sm:block" /> por conhecer
+              <br className="hidden sm:block" /> quem vai cuidar.
+            </h1>
+            <p className="mt-6 max-w-xl text-xl leading-relaxed text-muted-foreground">
+              Conheça o{" "}
+              <strong className="font-bold text-foreground">Dr. Alan Oliveira Costa</strong>.
+              Fisioterapia em casa, com atenção à pessoa idosa e às pequenas coisas que fazem
+              diferença na rotina.
+            </p>
+            <div className="mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+              <WhatsAppButton trackingId="whatsapp_hero">Conversar com o Alan</WhatsAppButton>
               <a
-                href={whatsappLink()}
-                target="_blank"
-                rel="noopener noreferrer"
-                data-whatsapp-event="whatsapp_hero"
-                className="inline-flex min-h-12 items-center justify-center gap-2.5 rounded-lg bg-primary px-6 py-3 text-base font-semibold text-primary-foreground transition-[background-color,scale] duration-150 ease-out hover:bg-deep motion-safe:active:scale-[0.98]"
+                href="#cuidado-em-casa"
+                className="inline-flex min-h-12 items-center justify-center rounded-lg px-4 py-3 text-base font-semibold text-deep underline underline-offset-4 hover:bg-secondary"
               >
-                <IconeWhatsApp className="h-5 w-5 shrink-0" />
-                Falar no WhatsApp
-                <span className="sr-only"> (abre o WhatsApp em outra janela)</span>
+                Conhecer o atendimento
               </a>
-              <SalvarContatoBotao />
+            </div>
+            <p className="mt-4 max-w-md text-base leading-relaxed text-muted-foreground">
+              Para você ou para alguém da família. Não é preciso saber qual tratamento procurar.
+            </p>
+          </div>
+          <figure className="portrait-note m-0 min-w-0">
+            <img
+              src={retrato}
+              alt="Alan Oliveira Costa sorrindo, com a camisa da Fisio Acessível"
+              width={1254}
+              height={1254}
+              fetchPriority="high"
+              className="aspect-square w-full rounded-t-lg object-cover"
+            />
+            <figcaption className="rounded-b-lg border border-t-0 border-border bg-card px-6 py-5">
+              <p className="text-xl font-bold">Dr. Alan Oliveira Costa</p>
+              <p className="mt-1 text-lg text-muted-foreground">Fisioterapeuta · Fisio Acessível</p>
+              <Link
+                to="/sobre"
+                className="mt-2 inline-flex min-h-12 items-center text-base font-semibold text-deep underline underline-offset-4 hover:text-primary"
+              >
+                Mais sobre o Alan
+              </Link>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section
+        className="border-y border-border bg-secondary px-5 py-14 sm:py-18"
+        aria-labelledby="situacoes-titulo"
+      >
+        <div className="mx-auto max-w-6xl">
+          <div className="grid gap-5 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
+            <h2 id="situacoes-titulo" className="max-w-xl text-3xl font-bold sm:text-4xl">
+              Você percebeu alguma mudança no dia a dia?
+            </h2>
+            <p className="max-w-xl text-lg leading-relaxed text-muted-foreground">
+              Muitas vezes, a procura começa por uma situação simples de contar. Observar o que
+              mudou é um ponto de partida para conversar sobre o cuidado.
+            </p>
+          </div>
+          <ul className="mt-9 grid gap-x-8 sm:grid-cols-2 lg:grid-cols-4">
+            {situacoes.map(({ Icone, titulo, texto }) => (
+              <li key={titulo} className="border-t-2 border-primary/30 py-6">
+                <Icone className="mb-5 h-10 w-10 text-deep" />
+                <h3 className="max-w-xs text-xl font-bold">{titulo}</h3>
+                <p className="mt-3 text-lg leading-relaxed text-muted-foreground">{texto}</p>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-3 max-w-3xl text-lg leading-relaxed">
+            Cada pessoa tem uma história. A avaliação profissional ajuda a entender quais cuidados
+            fazem sentido para ela.
+          </p>
+        </div>
+      </section>
+
+      <section id="cuidado-em-casa" className="px-5 py-14 sm:py-20">
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-10 max-w-3xl">
+            <h2 className="text-3xl font-bold sm:text-4xl">A casa faz parte do cuidado.</h2>
+            <p className="mt-4 text-xl leading-relaxed text-muted-foreground">
+              A cadeira preferida. O caminho até o quarto. O apoio de alguém da família. É nesse
+              cotidiano que o atendimento encontra seu sentido.
+            </p>
+          </div>
+          <div className="grid items-center gap-8 lg:grid-cols-[1fr_0.9fr] lg:gap-16">
+            <figure className="m-0">
+              <img
+                src={escuta}
+                alt="Alan ao lado de uma pessoa idosa sentada em uma poltrona, segurando sua mão"
+                width={1080}
+                height={1440}
+                loading="lazy"
+                className="care-photo aspect-[4/5] w-full rounded-lg object-cover object-[center_58%]"
+              />
+              <figcaption className="mt-3 text-sm text-muted-foreground">
+                Um registro de proximidade no atendimento.
+              </figcaption>
+            </figure>
+            <div>
+              <p className="mb-3 text-lg font-semibold text-deep">Tempo para conhecer a pessoa</p>
+              <h3 className="text-3xl font-bold sm:text-4xl">
+                Antes de falar em exercícios, uma conversa.
+              </h3>
+              <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
+                O que está difícil? O que a pessoa sente falta de fazer? Ouvir essas respostas ajuda
+                a colocar a rotina e as escolhas de quem será atendido no centro do cuidado.
+              </p>
+              <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
+                A família pode trazer suas observações e dúvidas, mantendo a pessoa idosa como parte
+                da conversa.
+              </p>
+              <div className="mt-7 border-l-4 border-primary pl-5">
+                <p className="text-xl font-semibold leading-relaxed">
+                  A pessoa tem uma história, uma casa e um jeito próprio de viver.
+                </p>
+              </div>
             </div>
           </div>
-
-          {/* O bilhete preso ao lado do ímã: o caminho inteiro em três passos. */}
-          <div className="plate p-6 sm:p-8">
-            <h2 className="text-xl font-bold sm:text-2xl">Como funciona</h2>
-            <ol className="mt-5">
-              {passos.map((passo) => (
-                <li
-                  key={passo.n}
-                  className="grid grid-cols-[3rem_1fr] gap-4 border-b border-border py-4 last:border-b-0 last:pb-0"
-                >
-                  <span className="numerais flex h-12 w-12 items-center justify-center rounded-lg bg-secondary text-2xl font-bold text-deep">
-                    {passo.n}
-                  </span>
-                  <span>
-                    <span className="block text-lg font-bold">{passo.titulo}</span>
-                    <span className="mt-1 block text-lg leading-relaxed text-muted-foreground">
-                      {passo.texto}
-                    </span>
-                  </span>
-                </li>
-              ))}
-            </ol>
-            <p className="mt-5 text-lg text-muted-foreground">
-              A avaliação inicial é combinada pelo WhatsApp, sem compromisso.
-            </p>
+          <div className="mt-12 grid items-center gap-8 lg:mt-20 lg:grid-cols-[0.9fr_1fr] lg:gap-16">
+            <div className="lg:order-1">
+              <p className="mb-3 text-lg font-semibold text-deep">Movimento no ambiente real</p>
+              <h3 className="text-3xl font-bold sm:text-4xl">
+                O que importa está nas pequenas tarefas.
+              </h3>
+              <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
+                Levantar, sentar, percorrer um caminho. O atendimento em casa permite considerar o
+                espaço e as atividades que a pessoa encontra todos os dias.
+              </p>
+              <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
+                A proposta de acompanhamento depende da avaliação e das necessidades de cada pessoa,
+                respeitando suas possibilidades.
+              </p>
+              <Link
+                to="/servicos"
+                className="mt-6 inline-flex min-h-12 items-center text-base font-semibold text-deep underline underline-offset-4 hover:text-primary"
+              >
+                Conhecer as áreas de atendimento
+              </Link>
+            </div>
+            <figure className="m-0 lg:order-2">
+              <img
+                src={movimento}
+                alt="Alan acompanhando uma pessoa idosa em pé, com apoio das mãos, em um ambiente com poltronas"
+                width={1080}
+                height={1350}
+                loading="lazy"
+                className="care-photo aspect-[4/5] w-full rounded-lg object-cover"
+              />
+              <figcaption className="mt-3 text-sm text-muted-foreground">
+                Presença e acompanhamento durante o movimento.
+              </figcaption>
+            </figure>
           </div>
         </div>
       </section>
 
-      {/* As placas: um assunto por placa, do jeito que uma sinalização informa. */}
-      <Secao className="bg-secondary">
-        <h2 className="max-w-3xl text-3xl font-bold sm:text-4xl">
-          O tratamento acontece onde a vida acontece
-        </h2>
-        <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-          Em casa, a fisioterapia trabalha as tarefas reais do dia a dia — com os móveis, o degrau e
-          a cadeira que a pessoa usa de verdade.
-        </p>
-        {/* Uma faixa só, como uma placa de sinalização: a cor forte ocupa a região
-            inteira e cada símbolo divide o campo, em vez de virarem cartões iguais. */}
-        <ul className="magnet mt-9 grid overflow-hidden bg-primary text-primary-foreground sm:grid-cols-2 lg:grid-cols-5">
-          {tarefas.map(({ Icone, titulo, texto }, i) => (
-            <li
-              key={titulo}
-              className={`flex flex-col gap-3 p-6 ${
-                i > 0 ? "border-t border-primary-foreground/25 sm:border-t-0" : ""
-              } ${i % 2 === 1 ? "sm:border-l sm:border-primary-foreground/25" : ""} ${
-                i > 1 ? "sm:border-t sm:border-primary-foreground/25" : ""
-              } lg:border-l lg:border-t-0 lg:first:border-l-0`}
-            >
-              <Icone className="h-14 w-14" />
-              <h3 className="text-xl font-bold leading-snug">{titulo}</h3>
-              <p className="text-lg leading-relaxed">{texto}</p>
-            </li>
-          ))}
-        </ul>
-        <div className="plate mx-auto mt-5 flex max-w-3xl flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between">
-          <p className="max-w-md text-lg leading-relaxed">
-            Cada caso é diferente. Conte o que está acontecendo e o Dr. Alan avalia o que dá para
-            trabalhar.
-          </p>
-          <WhatsAppButton
-            trackingId="whatsapp_tarefas"
-            variant="outline"
-            className="shrink-0"
-            mensagem="Olá, Dr. Alan! Gostaria de conversar sobre uma avaliação para um familiar idoso."
-          >
-            Contar o meu caso
-          </WhatsAppButton>
-        </div>
-      </Secao>
-
-      {/* Por que em casa */}
-      <Secao>
-        <div className="grid items-center gap-10 lg:grid-cols-2">
-          <figure className="m-0">
-            <img
-              src={cuidadoImg}
-              alt="Imagem ilustrativa de fisioterapia domiciliar: profissional apoiando o braço de uma pessoa idosa em casa"
-              loading="lazy"
-              width={1200}
-              height={900}
-              className="w-full rounded-lg border border-border object-cover"
-            />
-            <figcaption className="mt-2 text-sm text-muted-foreground">
-              Imagem ilustrativa. As fotos do atendimento do Dr. Alan entram assim que forem
-              autorizadas.
-            </figcaption>
-          </figure>
+      <section id="primeira-visita" className="bg-secondary px-5 py-14 sm:py-18">
+        <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
           <div>
             <h2 className="text-3xl font-bold sm:text-4xl">
-              Levar a pessoa até a clínica é, muitas vezes, a parte mais difícil
+              A primeira visita começa pela sua história.
             </h2>
-            <div className="mt-5 space-y-4 text-lg leading-relaxed text-muted-foreground">
-              <p>
-                Escada, transporte, dor ao se mover, horário, alguém disponível para acompanhar:
-                depois de uma queda ou de uma perda de força, sair de casa vira um problema por si
-                só.
-              </p>
-              <p>
-                Atender em casa resolve isso e ainda mostra o cenário real — os móveis, o degrau da
-                entrada, o banheiro. É ali que a fisioterapia consegue trabalhar o que importa.
-              </p>
-              <p>
-                A pessoa idosa é tratada como adulta: linguagem clara, informação honesta e
-                participação nas decisões. A família também é orientada.
-              </p>
-            </div>
-          </div>
-        </div>
-      </Secao>
-
-      {/* Quem atende, com as pendências à mostra em vez de inventadas. */}
-      <Secao className="bg-secondary" id="quem-atende">
-        <div className="grid gap-8 lg:grid-cols-[1fr_1.4fr]">
-          <div className="flex min-h-56 flex-col items-center justify-center rounded-lg border-2 border-dashed border-border bg-background p-6 text-center">
-            <p className="text-base font-semibold">Foto do Dr. Alan</p>
-            <p className="mt-2 text-base text-muted-foreground">
-              Espaço reservado para a foto profissional real, com autorização.
+            <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
+              Antes de agendar, converse com o Alan sobre o endereço, a disponibilidade e como
+              funciona a avaliação inicial.
+            </p>
+            <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
+              Leve suas dúvidas. Não é preciso chegar com todas as respostas.
             </p>
           </div>
-          <div>
-            <h2 className="text-3xl font-bold sm:text-4xl">{site.profissional}</h2>
-            <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-              O cuidado com pessoas idosas é a marca do trabalho dele, e o atendimento domiciliar
-              leva esse cuidado até a casa do paciente em {site.cidade}.
-            </p>
-            <dl className="mt-6 grid gap-4 sm:grid-cols-3">
-              {ficha.map((item) => (
-                <div
-                  key={item.t}
-                  className={`rounded-lg border-2 bg-card p-4 ${
-                    item.pendente ? "border-dashed border-border" : "border-border"
-                  }`}
-                >
-                  <dt className="text-sm font-bold uppercase tracking-wide text-deep">{item.t}</dt>
-                  <dd className="mt-1 text-lg">{item.d}</dd>
-                  {item.pendente && (
-                    <dd className="mt-1 text-base text-muted-foreground">a confirmar</dd>
-                  )}
+          <ol className="border-t border-border">
+            {primeiraVisita.map((item, i) => (
+              <li
+                key={item.titulo}
+                className="grid grid-cols-[2rem_1fr] gap-4 border-b border-border py-6"
+              >
+                <span className="numerais text-2xl font-bold text-deep">{i + 1}</span>
+                <div>
+                  <h3 className="text-xl font-bold">{item.titulo}</h3>
+                  <p className="mt-2 text-lg leading-relaxed text-muted-foreground">{item.texto}</p>
                 </div>
-              ))}
-            </dl>
-            <Link
-              to="/sobre"
-              className="mt-6 inline-flex min-h-12 items-center rounded-lg border-2 border-primary bg-card px-6 py-3 text-base font-semibold text-deep transition-colors hover:bg-secondary"
-            >
-              Conhecer o Dr. Alan
-            </Link>
-          </div>
+              </li>
+            ))}
+          </ol>
         </div>
-      </Secao>
+      </section>
 
       {hasEditorialContent && (
-        <Secao>
-          <div className="plate flex flex-col gap-5 p-6 sm:p-8 lg:flex-row lg:items-center lg:justify-between">
+        <section className="px-5 py-12">
+          <div className="mx-auto flex max-w-6xl flex-col justify-between gap-5 border-b border-border pb-10 sm:flex-row sm:items-center">
             <div>
-              <h2 className="text-2xl font-bold sm:text-3xl">
-                Dúvidas sobre quedas, força e caminhada
-              </h2>
-              <p className="mt-3 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-                Orientações em linguagem simples sobre mobilidade, envelhecimento e quando procurar
-                ajuda, com as fontes citadas.
+              <h2 className="text-2xl font-bold">Para entender melhor, com calma.</h2>
+              <p className="mt-2 max-w-2xl text-lg text-muted-foreground">
+                Leituras sobre mobilidade, força e cuidado com a pessoa idosa.
               </p>
             </div>
             <Link
               to="/orientacoes"
-              className="inline-flex min-h-12 shrink-0 items-center justify-center rounded-lg border-2 border-primary bg-card px-6 py-3 text-base font-semibold text-deep transition-colors hover:bg-secondary"
+              className="inline-flex min-h-12 shrink-0 items-center rounded-lg border-2 border-primary px-5 py-3 text-base font-semibold text-deep hover:bg-secondary"
             >
               Ler as orientações
             </Link>
           </div>
-        </Secao>
+        </section>
       )}
 
-      <Secao className="pt-0">
-        <BlocoContato
-          titulo="Seu pai ou sua mãe precisa de fisioterapia?"
-          texto="Converse com o Dr. Alan sobre o caso e descubra como funciona o atendimento em casa, em Campinas."
-        />
-        <div className="plate mt-5 flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between">
-          <p className="max-w-xl text-lg leading-relaxed text-muted-foreground">
-            <strong className="font-bold text-foreground">Depoimentos:</strong> só publicamos
-            relatos reais, com autorização de quem escreveu. Ainda não há nenhum publicado.
-          </p>
-          <Link
-            to="/contato"
-            className="inline-flex min-h-12 shrink-0 items-center rounded-lg px-1 text-base font-semibold text-deep underline underline-offset-4"
-          >
-            Ver contato e região
-          </Link>
+      <section id="vamos-conversar" className="px-5 py-14">
+        <div className="mx-auto grid max-w-6xl items-center gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-14">
+          <div>
+            <h2 className="text-3xl font-bold sm:text-4xl">
+              Vamos conversar sobre quem precisa de cuidado?
+            </h2>
+            <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
+              Conte o que está acontecendo e em qual região de Campinas seria o atendimento. O
+              próximo passo pode começar por uma conversa simples.
+            </p>
+            <Link
+              to="/contato"
+              className="mt-5 inline-flex min-h-12 items-center text-base font-semibold text-deep underline underline-offset-4 hover:text-primary"
+            >
+              Outras formas de contato
+            </Link>
+          </div>
+          <div className="hero-copy min-w-0">
+            <BlocoContato
+              titulo="O contato do Alan, sempre à mão."
+              texto="Converse pelo WhatsApp ou salve o número para falar depois."
+            />
+          </div>
         </div>
-      </Secao>
+      </section>
+      <aside className="px-5 pb-8">
+        <p className="mx-auto max-w-6xl border-t border-border pt-5 text-sm leading-relaxed text-muted-foreground">
+          Prévia para apresentação ao Alan. Fotografias fornecidas para uso provisório; seleção,
+          textos e informações sujeitos à revisão antes da publicação.
+        </p>
+      </aside>
     </>
   );
 }

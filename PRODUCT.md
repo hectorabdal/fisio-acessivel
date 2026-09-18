@@ -69,3 +69,7 @@ Um único profissional, com pós-graduação em Fisioterapia Geriátrica, que va
 - Áreas de toque com pelo menos 44px (48px de preferência). O site precisa funcionar com zoom de 200%.
 - Todo movimento tem alternativa para quem ativou "reduzir movimento". Nada de vídeo automático, parallax ou animação repetitiva chamativa, por causa da sensibilidade a tontura.
 - Nomes lidos por leitores de tela correspondem ao texto visível, e links que abrem o WhatsApp deixam isso claro.
+
+## Atualização de apresentação — 18/09/2026
+
+O usuário forneceu seis fotos atribuídas ao Facebook da Fisio Acessível e autorizou uso provisório na apresentação ao Alan, inclusive tratamento e cenas ilustrativas. A prévia usa três: retrato tratado, proximidade junto à poltrona e acompanhamento em pé. A antiga imagem `dr-alan.jpg` continua sem representar Alan e não deve ser utilizada como retrato real. A seleção atual não confirma permissões de publicação definitiva nem informações profissionais. Home reorganizada conforme sequência: Alan, situações, cuidado em casa, primeira visita, contato. Sem publicação ou envio ao GitHub nesta etapa.

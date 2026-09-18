@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { BlocoContato } from "@/components/site/ContatoMagnet";
 import { fichaProfissional as ficha, site } from "@/lib/site";
 import { createPageHead } from "@/lib/seo";
+import retrato from "@/assets/alan-preview/retrato-tratado.jpg";
 
 export const Route = createFileRoute("/sobre")({
   head: () =>
@@ -56,12 +57,19 @@ function Sobre() {
     <>
       <section className="px-5 pb-10 pt-10 sm:pt-14">
         <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
-          <div className="flex min-h-64 flex-col items-center justify-center rounded-lg border-2 border-dashed border-border bg-card p-6 text-center">
-            <p className="text-base font-semibold">Foto do {site.profissional}</p>
-            <p className="mt-2 text-base text-muted-foreground">
-              Espaço reservado para a foto profissional real, com autorização.
-            </p>
-          </div>
+          <figure className="m-0 min-w-0">
+            <img
+              src={retrato}
+              alt="Retrato de Alan Oliveira Costa, da Fisio Acessível"
+              width={1254}
+              height={1254}
+              fetchPriority="high"
+              className="aspect-square w-full rounded-lg object-cover"
+            />
+            <figcaption className="mt-3 text-sm text-muted-foreground">
+              Fotografia com tratamento de imagem, provisória para apresentação.
+            </figcaption>
+          </figure>
           <div>
             <h1 className="text-[2rem] font-bold leading-[1.1] sm:text-5xl">
               Quem vai atender na sua casa

@@ -19,8 +19,10 @@ export function SalvarContatoBotao({ className = "" }: { className?: string }) {
 export function NumeroWhatsApp({ tamanho = "grande" }: { tamanho?: "grande" | "medio" }) {
   return (
     <a
-      href={`tel:${site.telefoneLink}`}
-      className="inline-flex min-h-12 items-center gap-2.5 rounded-lg py-1 text-highlight-foreground hover:underline sm:gap-3"
+      href={whatsappLink()}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex max-w-full min-h-12 items-center gap-2 rounded-lg py-1 text-highlight-foreground hover:underline sm:gap-3"
     >
       <IconeWhatsApp
         className={tamanho === "grande" ? "h-7 w-7 shrink-0 sm:h-10 sm:w-10" : "h-6 w-6 shrink-0"}
@@ -28,12 +30,13 @@ export function NumeroWhatsApp({ tamanho = "grande" }: { tamanho?: "grande" | "m
       <span
         className={`numerais font-bold ${
           tamanho === "grande"
-            ? "whitespace-nowrap text-[clamp(2.35rem,5.4vw,3.9rem)] leading-none"
+            ? "whitespace-nowrap text-[clamp(1.35rem,6vw,3.25rem)] leading-none"
             : "text-2xl"
         }`}
       >
         {site.whatsappLabel}
       </span>
+      <span className="sr-only"> (abre o WhatsApp em outra janela)</span>
     </a>
   );
 }

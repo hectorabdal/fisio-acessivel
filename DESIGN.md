@@ -431,3 +431,11 @@ aviso, 56px na faixa de placas.
   atenção — o público tem sensibilidade a tontura.
 - **Don't** preencher CREFITO, bairro, horário, preço, depoimento ou foto do profissional com
   conteúdo inventado para "fechar" o layout; o espaço tracejado é a solução de design.
+
+## Prévia para apresentação ao Alan — 18/09/2026
+
+Direção aprovada para experimentação local: apresentar Alan, situações da rotina, cuidado no ambiente real, primeira visita e contato. Nesta prévia, a regra anterior de o telefone ser o maior elemento deixa de valer na abertura. A fotografia e a apresentação do profissional lideram; o ímã amarelo permanece como assinatura do contato final. Paleta, Archivo e componentes de contato existentes foram preservados.
+
+Fotos em `src/assets/alan-preview/`, fornecidas pelo usuário a partir do Facebook da Fisio Acessível, autorizadas nesta conversa exclusivamente para demonstração provisória. O retrato recebeu tratamento com IA; as duas cenas preservam seu conteúdo original, com enquadramento de layout e leve ajuste visual via CSS. Não atribuir local, diagnóstico ou resultado às cenas. Não publicar esta seleção como definitiva sem revisão do Alan. O material original foi preservado para comparação.
+
+Tokens continuam em `src/styles.css`; esta versão não acrescenta cores nem fontes. `.portrait-note` reutiliza sombra e raio existentes, `.care-photo` aplica tratamento visual discreto. A hierarquia editorial usa as mesmas escalas responsivas do projeto, com título principal maior no desktop. A foto também aparece em `/sobre`.
