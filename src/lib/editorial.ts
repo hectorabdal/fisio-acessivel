@@ -2,8 +2,13 @@ import { draftArticles } from "@/data/orientacoes-rascunhos";
 import { publishedArticles, type EditorialArticle } from "@/data/orientacoes";
 import { site } from "@/lib/site";
 
-// Drafts are available locally only; they never become public by accident during a build.
-export const editorialPreview = import.meta.env.DEV;
+// Os rascunhos aparecem no servidor local e, quando VITE_ORIENTACOES_REVISAO=1,
+// também no site publicado — é o modo de revisão, para o profissional ler os
+// textos no endereço real. Mesmo nesse modo eles continuam sem revisão
+// identificada, o que mantém o aviso na página e o "noindex" nos buscadores.
+// Sem a variável, nenhum rascunho entra numa versão publicada.
+export const editorialPreview =
+  import.meta.env.DEV || import.meta.env.VITE_ORIENTACOES_REVISAO === "1";
 
 export function isPublished(article: EditorialArticle) {
   return (
