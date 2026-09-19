@@ -184,7 +184,9 @@ function Index() {
                 A família pode trazer suas observações e dúvidas, mantendo a pessoa idosa como parte
                 da conversa.
               </p>
-              <div className="mt-7 border-l-4 border-primary pl-5">
+              {/* Destaque pelo filete no topo, como a lista de situações e os
+                  princípios da página Sobre. Barra lateral grossa não entra no sistema. */}
+              <div className="mt-7 border-t-2 border-primary/30 pt-5">
                 <p className="text-xl font-semibold leading-relaxed">
                   A pessoa tem uma história, uma casa e um jeito próprio de viver.
                 </p>
